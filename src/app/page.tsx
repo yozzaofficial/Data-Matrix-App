@@ -11,8 +11,8 @@ export default async function Home() {
 
   return (
     <div>
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
+      <h1>{post.id}</h1>
+      <p>{post.name}</p>
     </div>
   );
 }
