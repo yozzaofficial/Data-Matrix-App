@@ -16,6 +16,7 @@ export default async function Home() {
   ));
   return (
     <div>
+      <p>qui</p>
       {data}
     </div>
   );
