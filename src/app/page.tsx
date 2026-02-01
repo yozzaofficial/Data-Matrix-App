@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import { getPostById } from "../../lib/lib";
 type Post = {
   id: number;
-  name: string;
+  nome: string;
 };
 
 export default async function Home() {
@@ -16,7 +16,7 @@ export default async function Home() {
   const data = posts.map((e: Post) => (
     <div key={e.id}>
       <p>{e.id}</p>
-      <p>{e.name}</p>
+      <p>{e.nome}</p>
     </div>
   ));
 
