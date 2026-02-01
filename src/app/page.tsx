@@ -8,11 +8,15 @@ export default async function Home() {
   if (!post) {
     return <div>Post non trovato</div>;
   }
-
+  const data = post.map((e: { id: number; name: string }) => (
+    <div key={e.id}>
+      <p>{e.id}</p>
+      <p>{e.name}</p>
+    </div>
+  ));
   return (
     <div>
-      <h1>{post.id}</h1>
-      <p>{post.name}</p>
+      {data}
     </div>
   );
 }
