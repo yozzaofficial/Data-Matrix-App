@@ -1,5 +1,4 @@
 import { sql } from "../../../../lib/db";
-import * as bcrypt from "bcryptjs";
 import { randomUUID } from "crypto";
 
 export async function POST(req: Request) {
@@ -15,8 +14,10 @@ export async function POST(req: Request) {
     const user = rows[0];
     if (!user) return new Response("Unauthorized", { status: 401 });
 
-    const valid = await bcrypt.compare(password, user.password);
-    if (!valid) return new Response("Unauthorized", { status: 401 });
+    // confronto diretto senza hash
+    if (password !== user.password) {
+        return new Response("Unauthorized", { status: 401 });
+    }
 
     const sessionId = randomUUID();
     await sql`
