@@ -4,6 +4,10 @@ import { useState } from "react";
 export default function LoginPage() {
     const [error, setError] = useState("");
 
+    // Leggi il parametro redirect dall'URL
+    const searchParams = new URLSearchParams(window.location.search);
+    const redirectTo = searchParams.get("redirect") || "/";
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError("");
@@ -19,8 +23,8 @@ export default function LoginPage() {
         });
 
         if (res.ok) {
-            // redirect a dashboard
-            window.location.href = "/";
+            // Reindirizza alla pagina originale
+            window.location.href = redirectTo;
         } else {
             setError("Nome o password errati");
         }
