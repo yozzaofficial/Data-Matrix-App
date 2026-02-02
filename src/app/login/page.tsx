@@ -3,8 +3,6 @@ import { useState } from "react";
 
 export default function LoginPage() {
     const [error, setError] = useState("");
-    const searchParams = new URLSearchParams(window.location.search);
-    const redirectTo = searchParams.get("redirect") || "/";
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -21,7 +19,8 @@ export default function LoginPage() {
         });
 
         if (res.ok) {
-            window.location.href = redirectTo; // torna alla pagina originale
+            // redirect a dashboard
+            window.location.href = "/";
         } else {
             setError("Nome o password errati");
         }
@@ -31,9 +30,22 @@ export default function LoginPage() {
         <div style={{ maxWidth: "300px", margin: "auto", paddingTop: "50px" }}>
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
-                <input name="nome" placeholder="Nome" required style={{ width: "100%", marginBottom: "10px" }} />
-                <input name="password" type="password" placeholder="Password" required style={{ width: "100%", marginBottom: "10px" }} />
-                <button type="submit" style={{ width: "100%" }}>Login</button>
+                <input
+                    name="nome"
+                    placeholder="Nome"
+                    required
+                    style={{ width: "100%", marginBottom: "10px" }}
+                />
+                <input
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    required
+                    style={{ width: "100%", marginBottom: "10px" }}
+                />
+                <button type="submit" style={{ width: "100%" }}>
+                    Login
+                </button>
             </form>
             {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
