@@ -1,13 +1,17 @@
+import { headers } from "next/headers";
 import { cookies } from "next/headers";
 import { sql } from "./db";
 import { redirect } from "next/navigation";
 
-export async function requireUser(currentPath: string) {
-  const session = (await cookies()).get("session")?.value;
+export async function requireUser() {
+  const cookieStore = cookies();
+  const session = (await cookieStore).get("session")?.value;
+
+  // Ottieni l'URL della richiesta
+  const currentUrl = (await headers()).get("x-invoke-path") || "/";
 
   if (!session) {
-    // Se non loggato, vai al login con redirect alla pagina originale
-    redirect(`/login?redirect=${encodeURIComponent(currentPath)}`);
+    redirect(`/login?redirect=${encodeURIComponent(currentUrl)}`);
   }
 
   const rows = await sql`
@@ -18,7 +22,7 @@ export async function requireUser(currentPath: string) {
     `;
 
   if (!rows[0]) {
-    redirect(`/login?redirect=${encodeURIComponent(currentPath)}`);
+    redirect(`/login?redirect=${encodeURIComponent(currentUrl)}`);
   }
 
   return rows[0];
