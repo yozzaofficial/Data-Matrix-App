@@ -1,8 +1,7 @@
 import { requireUser } from "../../../lib/auth"
-import { usePathname } from "next/navigation";
-
+import getLocation from "../../../components/getLocation";
 export default async function Item1() {
-    const location = usePathname();
+    const location = getLocation()
     const user = await requireUser(location);
 
     return <>

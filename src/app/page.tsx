@@ -1,13 +1,13 @@
 import { requireUser } from "../../lib/auth";
-import { usePathname } from "next/navigation";
-
+import getLocation from "../../components/getLocation";
+import { get } from "http";
 type Post = {
   id: number;
   nome: string;
 };
 
 export default async function Home() {
-  const location = usePathname();
+  const location = getLocation();
 
   const user = await requireUser(location);
   return (
