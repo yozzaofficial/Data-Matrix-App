@@ -2,9 +2,9 @@ import { cookies } from "next/headers";
 import { sql } from "./db";
 import { redirect } from "next/navigation";
 
-export async function requireUser() {
+export async function requireUser(location: string) {
   const session = (await cookies()).get("session")?.value;
-
+  console.log(location)
   if (!session) redirect("/login");
 
   const rows = await sql`
