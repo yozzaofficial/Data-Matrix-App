@@ -3,7 +3,8 @@ import { Suspense } from "react";
 
 async function ToDo({ searchParams }: { searchParams: { item?: string } }) {
     const location = "todo"
-    const item = searchParams.item || "/"
+    const params = await searchParams; // Unwrap la Promise
+    const item = params.item || "nessun item"; // Default più chiaro
     const pathLocation = `${location}?item=${item}`
     const user = await requireUser(pathLocation);
 
