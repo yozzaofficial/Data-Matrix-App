@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function LoginPage() {
+function LoginForm() {
     const [error, setError] = useState("");
     const searchParams = useSearchParams();
     const pathLocation = searchParams.get("path") || "/";
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError("");
@@ -21,7 +22,6 @@ export default function LoginPage() {
         });
 
         if (res.ok) {
-            // redirect a dashboard
             window.location.href = `/${pathLocation}`;
         } else {
             setError("Nome o password errati");
@@ -51,5 +51,13 @@ export default function LoginPage() {
             </form>
             {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<div>Caricamento...</div>}>
+            <LoginForm />
+        </Suspense>
     );
 }
