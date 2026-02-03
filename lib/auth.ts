@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 export async function requireUser(location: string) {
   const session = (await cookies()).get("session")?.value;
   console.log(location)
-  if (!session) redirect("/login");
+  if (!session) redirect(`/login$path=${location}`);
 
   const rows = await sql`
     SELECT u.id, u.nome, u.rank
@@ -14,7 +14,7 @@ export async function requireUser(location: string) {
     WHERE s.id = ${session}
   `;
 
-  if (!rows[0]) redirect("/login");
+  if (!rows[0]) redirect(`/login$path=${location}`);
 
   return rows[0]; // ritorna l’utente
 }

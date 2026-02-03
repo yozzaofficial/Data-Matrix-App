@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
     const [error, setError] = useState("");
-
+    const searchParams = useSearchParams();
+    const pathLocation = searchParams.get("path");
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError("");
@@ -20,7 +22,7 @@ export default function LoginPage() {
 
         if (res.ok) {
             // redirect a dashboard
-            window.location.href = "/";
+            window.location.href = `/${pathLocation}`;
         } else {
             setError("Nome o password errati");
         }
