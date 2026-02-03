@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 export default function LoginPage() {
     const [error, setError] = useState("");
     const searchParams = useSearchParams();
-    const pathLocation = searchParams.get("path");
+    const pathLocation = searchParams.get("path") || "/";
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError("");
