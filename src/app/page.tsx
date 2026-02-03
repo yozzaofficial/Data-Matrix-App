@@ -1,5 +1,4 @@
 import { requireUser } from "../../lib/auth";
-import getLocation from "../../components/getLocation";
 import { get } from "http";
 type Post = {
   id: number;
@@ -7,7 +6,7 @@ type Post = {
 };
 
 export default async function Home() {
-  const location = getLocation();
+  const location = "/";
 
   const user = await requireUser(location);
   return (

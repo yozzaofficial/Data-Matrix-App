@@ -1,7 +1,6 @@
 import { requireUser } from "../../../lib/auth"
-import getLocation from "../../../components/getLocation";
 export default async function Item1() {
-    const location = getLocation()
+    const location = "item1"
     const user = await requireUser(location);
 
     return <>
