@@ -1,11 +1,10 @@
 "use client";
 import { useState, Suspense } from "react";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 function LoginForm() {
     const [error, setError] = useState("");
     const searchParams = useSearchParams();
-    const pathname = usePathname();
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -22,8 +21,17 @@ function LoginForm() {
         });
 
         if (res.ok) {
-            const params = searchParams.toString();
-            const fullUrl = params ? `${pathname}?${params}` : pathname;
+            // Prendi il parametro "path" che contiene la destinazione
+            const redirectPath = searchParams.get("path") || "/";
+
+            // Prendi gli altri parametri (es: item, filter, ecc.)
+            const otherParams = new URLSearchParams(searchParams);
+            otherParams.delete("path"); // Rimuovi "path" dai parametri
+
+            // Costruisci l'URL finale
+            const params = otherParams.toString();
+            const fullUrl = params ? `${redirectPath}?${params}` : redirectPath;
+
             window.location.href = fullUrl;
         } else {
             setError("Nome o password errati");
