@@ -1,22 +1,21 @@
 import { requireUser } from "../../../lib/auth"
 import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 
-async function ToDo() {
+async function ToDo({ searchParams }: { searchParams: { item?: string } }) {
     const location = "todo"
-    const searchParams = useSearchParams();
-    const item = searchParams.get("item") || "/"
-    const pathLocation = `${location}?item${item}`
-    const user = await requireUser(location);
+    const item = searchParams.item || "/"
+    const pathLocation = `${location}?item=${item}`
+    const user = await requireUser(pathLocation);
 
     return <>
-        <h2>Item 1</h2>
+        <h2>Item: {item}</h2>
     </>
 }
-export default function ToDoList() {
+
+export default function ToDoList({ searchParams }: { searchParams: { item?: string } }) {
     return (
         <Suspense fallback={<div>Caricamento...</div>}>
-            <ToDo />
+            <ToDo searchParams={searchParams} />
         </Suspense>
     );
 }
