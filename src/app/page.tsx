@@ -1,5 +1,5 @@
 import { requireUser } from "../../lib/auth";
-import { useLocation } from "react-router-dom"
+import { usePathname } from "next/navigation";
 
 type Post = {
   id: number;
@@ -7,9 +7,9 @@ type Post = {
 };
 
 export default async function Home() {
-  const location = useLocation();
+  const location = usePathname();
 
-  const user = await requireUser(location.pathname);
+  const user = await requireUser(location);
   return (
     <div>
       <h1>Ciao {user.nome}</h1>;

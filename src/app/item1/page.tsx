@@ -1,9 +1,9 @@
 import { requireUser } from "../../../lib/auth"
-import { useLocation } from "react-router-dom"
+import { usePathname } from "next/navigation";
 
 export default async function Item1() {
-    const location = useLocation();
-    const user = await requireUser(location.pathname);
+    const location = usePathname();
+    const user = await requireUser(location);
 
     return <>
         <h2>Item 1</h2>
