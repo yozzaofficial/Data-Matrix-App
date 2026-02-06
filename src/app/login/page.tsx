@@ -1,75 +1,52 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
-function LoginForm() {
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+export default function TodoPage() {
     const searchParams = useSearchParams();
+    const router = useRouter();
+    const [loading, setLoading] = useState(true);
 
-    const userParam = searchParams.get("user"); // sarà "user"
+    const userParam = searchParams.get("user"); // "user"
 
-    async function login(nome: string, password: string) {
-        setLoading(true);
-        setError("");
-
-        const res = await fetch("/api/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome, password }),
-        });
-
-        if (res.ok) {
-            const redirectPath = searchParams.get("path") || "/";
-            const params = new URLSearchParams(searchParams);
-            params.delete("path");
-            params.delete("user");
-
-            const qs = params.toString();
-            window.location.href = qs ? `${redirectPath}?${qs}` : redirectPath;
-        } else {
-            setError("Login fallito");
-            setLoading(false);
-        }
-    }
-
-    // 👉 LOGIN AUTOMATICO
     useEffect(() => {
-        if (userParam === "user") {
-            login("user", "user"); // password fissa
+        async function checkLogin() {
+            const me = await fetch("/api/me");
+
+            if (me.ok) {
+                setLoading(false);
+                return;
+            }
+
+            if (userParam === "user") {
+                const res = await fetch("/api/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        nome: "user",
+                        password: "user",
+                    }),
+                });
+
+                if (res.ok) {
+                    router.replace("/todo");
+                    setLoading(false);
+                    return;
+                }
+            }
+
+            router.replace("/login?path=/todo");
         }
-    }, [userParam]);
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const form = e.currentTarget;
-        login(form.nome.value, form.password.value);
-    }
+        checkLogin();
+    }, [userParam, router]);
 
-    if (loading) return <p>Login in corso...</p>;
+    if (loading) return <p>Caricamento...</p>;
 
     return (
-        <div style={{ maxWidth: 300, margin: "auto", paddingTop: 50 }}>
-            <h2>Login</h2>
-
-            {!userParam && (
-                <form onSubmit={handleSubmit}>
-                    <input name="nome" placeholder="Nome" required />
-                    <input name="password" type="password" placeholder="Password" required />
-                    <button type="submit">Login</button>
-                </form>
-            )}
-
-            {error && <p style={{ color: "red" }}>{error}</p>}
+        <div>
+            <h1>Todo</h1>
         </div>
-    );
-}
-
-export default function LoginPage() {
-    return (
-        <Suspense fallback={<div>Caricamento...</div>}>
-            <LoginForm />
-        </Suspense>
     );
 }
