@@ -9,11 +9,25 @@ function LoginForm() {
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError("");
+        // Prendi il parametro "path" che contiene la destinazione
+        const redirectPath = searchParams.get("path") || "/";
+        // Prendi gli altri parametri (es: item, filter, ecc.)
+        const otherParams = new URLSearchParams(searchParams);
+        const checkIfUser = otherParams.toString()
+        const params = otherParams.toString();//final url
 
-        const form = e.currentTarget;
-        const nome = form.nome.value;
-        const password = form.password.value;
-
+        let form = e.currentTarget;
+        let nome
+        let password
+        if (checkIfUser == "user") {
+            nome = "user"
+            password = "user"
+        }
+        else {
+            nome = form.nome.value;
+            password = form.password.value;
+        }
+        otherParams.delete("path"); // Rimuovi "path" dai parametri
         const res = await fetch("/api/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -21,15 +35,7 @@ function LoginForm() {
         });
 
         if (res.ok) {
-            // Prendi il parametro "path" che contiene la destinazione
-            const redirectPath = searchParams.get("path") || "/";
 
-            // Prendi gli altri parametri (es: item, filter, ecc.)
-            const otherParams = new URLSearchParams(searchParams);
-            otherParams.delete("path"); // Rimuovi "path" dai parametri
-
-            // Costruisci l'URL finale
-            const params = otherParams.toString();
             const fullUrl = params ? `${redirectPath}?${params}` : redirectPath;
 
             window.location.href = fullUrl;
