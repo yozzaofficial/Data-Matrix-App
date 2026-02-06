@@ -1,33 +1,49 @@
 "use client";
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 function LoginForm() {
     const [error, setError] = useState("");
     const searchParams = useSearchParams();
 
+    useEffect(() => {
+        async function autoLogin() {
+            if (searchParams.get("user") === "user") {
+                const redirectPath = searchParams.get("path") || "/";
+                const otherParams = new URLSearchParams(searchParams);
+                otherParams.delete("path");
+
+                const res = await fetch("/api/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ nome: "user", password: "user" }),
+                });
+
+                if (res.ok) {
+                    const params = otherParams.toString();
+                    const fullUrl = params ? `${redirectPath}?${params}` : redirectPath;
+                    window.location.href = fullUrl;
+                } else {
+                    setError("Auto-login fallito");
+                }
+            }
+        }
+
+        autoLogin();
+    }, [searchParams]);
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError("");
-        // Prendi il parametro "path" che contiene la destinazione
-        const redirectPath = searchParams.get("path") || "/";
-        // Prendi gli altri parametri (es: item, filter, ecc.)
-        const otherParams = new URLSearchParams(searchParams);
-        const checkIfUser = otherParams.toString()
-        const params = otherParams.toString();//final url
 
-        let form = e.currentTarget;
-        let nome
-        let password
-        if (checkIfUser == "user") {
-            nome = "user"
-            password = "user"
-        }
-        else {
-            nome = form.nome.value;
-            password = form.password.value;
-        }
-        otherParams.delete("path"); // Rimuovi "path" dai parametri
+        const redirectPath = searchParams.get("path") || "/";
+        const otherParams = new URLSearchParams(searchParams);
+        otherParams.delete("path");
+
+        const form = e.currentTarget;
+        const nome = form.nome.value;
+        const password = form.password.value;
+
         const res = await fetch("/api/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -35,9 +51,8 @@ function LoginForm() {
         });
 
         if (res.ok) {
-
+            const params = otherParams.toString();
             const fullUrl = params ? `${redirectPath}?${params}` : redirectPath;
-
             window.location.href = fullUrl;
         } else {
             setError("Nome o password errati");
