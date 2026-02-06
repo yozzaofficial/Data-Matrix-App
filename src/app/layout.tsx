@@ -1,10 +1,9 @@
-"use client";
+// app/layout.tsx (Server Component - SENZA "use client")
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google"
-import Link from "next/link"
-import { usePathname } from "next/navigation";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import getRank from "./components/getRank";
+import ClientLayout from "./ClientLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,21 +20,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isLoginPage = pathname === '/login';
-  const userRank = await getRank()
+  const userRank = await getRank(); // ✅ Funziona qui
+
   return (
-    <html lang="en">
+    <html lang="it">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {!isLoginPage && (
-          <header>
-            <nav>
-              <Link href="/todo">Lavori da fare</Link>
-              {userRank == "admin" && <Link href="/">Lavori fatti</Link>}
-            </nav>
-          </header>
-        )}
-        {children}
+        <ClientLayout userRank={userRank}>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
