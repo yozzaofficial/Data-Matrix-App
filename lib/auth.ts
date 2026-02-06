@@ -9,7 +9,7 @@ export async function requireUser(location: string) {
   console.log("Requested location:", location);
 
   // Se non c'è sessione, redirect a login con query string corretta
-  if (!session) redirect(`/login?path=${encodeURIComponent(location)}`);
+  if (!session) redirect(`/login?path=${location}`);
 
   const rows = await sql`
     SELECT u.id, u.nome, u.rank

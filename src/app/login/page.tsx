@@ -1,18 +1,18 @@
 "use client";
-
-import { useEffect, useState, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 function LoginForm() {
-    const searchParams = useSearchParams();
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    const searchParams = useSearchParams();
 
-    const userParam = searchParams.get("user"); // "user"
-
-    async function login(nome: string, password: string) {
-        setLoading(true);
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
         setError("");
+
+        const form = e.currentTarget;
+        const nome = form.nome.value;
+        const password = form.password.value;
 
         const res = await fetch("/api/login", {
             method: "POST",
@@ -21,41 +21,44 @@ function LoginForm() {
         });
 
         if (res.ok) {
+            // Prendi il parametro "path" che contiene la destinazione
             const redirectPath = searchParams.get("path") || "/";
-            window.location.href = redirectPath;
+
+            // Prendi gli altri parametri (es: item, filter, ecc.)
+            const otherParams = new URLSearchParams(searchParams);
+            otherParams.delete("path"); // Rimuovi "path" dai parametri
+
+            // Costruisci l'URL finale
+            const params = otherParams.toString();
+            const fullUrl = params ? `${redirectPath}?${params}` : redirectPath;
+
+            window.location.href = fullUrl;
         } else {
-            setError("Login fallito");
-            setLoading(false);
+            setError("Nome o password errati");
         }
     }
-
-    // 👉 LOGIN AUTOMATICO
-    useEffect(() => {
-        if (userParam === "user") {
-            login("user", "user");
-        }
-    }, [userParam]);
-
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const form = e.currentTarget;
-        login(form.nome.value, form.password.value);
-    }
-
-    if (loading) return <p>Login in corso...</p>;
 
     return (
-        <div style={{ maxWidth: 300, margin: "auto", paddingTop: 50 }}>
+        <div style={{ maxWidth: "300px", margin: "auto", paddingTop: "50px" }}>
             <h2>Login</h2>
-
-            {!userParam && (
-                <form onSubmit={handleSubmit}>
-                    <input name="nome" placeholder="Nome" required />
-                    <input name="password" type="password" required />
-                    <button type="submit">Login</button>
-                </form>
-            )}
-
+            <form onSubmit={handleSubmit}>
+                <input
+                    name="nome"
+                    placeholder="Nome"
+                    required
+                    style={{ width: "100%", marginBottom: "10px" }}
+                />
+                <input
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    required
+                    style={{ width: "100%", marginBottom: "10px" }}
+                />
+                <button type="submit" style={{ width: "100%" }}>
+                    Login
+                </button>
+            </form>
             {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
     );

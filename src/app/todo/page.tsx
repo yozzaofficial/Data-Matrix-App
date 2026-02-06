@@ -2,9 +2,9 @@ import { requireUser } from "../../../lib/auth"
 import { Suspense } from "react";
 
 async function ToDo({ searchParams }: { searchParams: { item?: string } }) {
-    const params = searchParams; // Unwrap la Promise
+    const params = await searchParams; // Unwrap la Promise
     const item = params.item || "nessun item"; // Default più chiaro
-    const pathLocation = `todo?${item}`
+    const pathLocation = `todo?item=${item}`
     const user = await requireUser(pathLocation);
 
     return <>
