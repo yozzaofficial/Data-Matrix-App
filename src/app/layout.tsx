@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 import "./globals.css";
+import getRank from "../../components/getRank";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,21 +16,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
-
+  const userRank = await getRank()
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {!isLoginPage && (
           <header>
             <nav>
-              <Link href="/todo">To do List</Link>
+              <Link href="/todo">Lavori da fare</Link>
+              {userRank == "admin" && <Link href="/">Lavori fatti</Link>}
             </nav>
           </header>
         )}

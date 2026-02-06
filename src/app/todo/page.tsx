@@ -1,5 +1,7 @@
 import { requireUser } from "../../../lib/auth"
 import { Suspense } from "react";
+import getRank from "../../../components/getRank";
+import { get } from "http";
 
 async function ToDo({ searchParams }: { searchParams: { user?: string } }) {
     const params = await searchParams; // Unwrap la Promise
@@ -7,8 +9,10 @@ async function ToDo({ searchParams }: { searchParams: { user?: string } }) {
     const pathLocation = `todo?user=${item}`
     const user = await requireUser(pathLocation);
 
+    const userRank = getRank()
+
     return <>
-        <h2>Item: {item}</h2>
+        <h2>Item: {userRank}</h2>
     </>
 }
 
