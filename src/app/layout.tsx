@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 import "./globals.css";
-import getRank from "../../components/getRank";
+import getRank from "./components/getRank";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

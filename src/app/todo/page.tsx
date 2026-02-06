@@ -1,6 +1,6 @@
 import { requireUser } from "../../../lib/auth"
 import { Suspense } from "react";
-import getRank from "../../../components/getRank";
+import getRank from "../components/getRank";
 import { get } from "http";
 
 async function ToDo({ searchParams }: { searchParams: { user?: string } }) {
