@@ -1,17 +1,15 @@
 import { requireUser } from "../../lib/auth";
-import { get } from "http";
-type Post = {
-  id: number;
-  nome: string;
-};
+import { redirect } from "next/navigation"
+
 
 export default async function Home() {
   const location = "/";
 
   const user = await requireUser(location);
+  redirect("/todo")
   return (
     <div>
-      <h1>Ciao {user.nome}</h1>;
+      <h1>Maintance App</h1>;
     </div>
   );
 }

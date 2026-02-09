@@ -1,8 +1,20 @@
-// app/ClientLayout.tsx
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from 'next/image';
+import "./css/layout.css";
 
+import iconWork from "./../../public/icon/maintance.png";
+import iconWorkClicked from "./../../public/icon/maintanceClicked.png";
+import iconDone from "./../../public/icon/maintanceDone.png";
+import iconDoneClicked from "./../../public/icon/maintanceDoneClicked.png";
+import iconNewWork from "./../../public/icon/newWork.png";
+import iconNewWorkClicked from "./../../public/icon/newWorkClicked.png";
+import iconUserSettings from "./../../public/icon/userSetting.png";
+import iconUserSettingsClicked from "./../../public/icon/userSettingClicked.png";
+import NavButtons from "./components/NavButtons";
+import MainHeader2 from "./components/MainHeader2";
 export default function ClientLayout({
     userRank,
     children,
@@ -10,19 +22,25 @@ export default function ClientLayout({
     userRank: string;
     children: React.ReactNode;
 }) {
-    const pathname = usePathname(); // ✅ Funziona qui (Client Component)
+    const pathname = usePathname();
     const isLoginPage = pathname === '/login';
+
+
 
     return (
         <>
+            {!isLoginPage && <MainHeader2 />}
             {!isLoginPage && (
-                <header>
+                <header className="mainHeader">
                     <nav>
-                        <Link href="/todo">Lavori da fare</Link>
-                        {userRank === "admin" && <Link href="/">Lavori fatti</Link>}
+                        <NavButtons pathname={pathname} iconClicked={iconWorkClicked} icon={iconWork} path="/todo" name="To do"></NavButtons>
+                        <NavButtons pathname={pathname} iconClicked={iconDoneClicked} icon={iconDone} path="/done" name="Work Done"></NavButtons>
+                        {userRank === "admin" && <NavButtons pathname={pathname} iconClicked={iconNewWorkClicked} icon={iconNewWork} path="/new" name="Handle Work"></NavButtons>}
+                        {userRank === "admin" && <NavButtons pathname={pathname} iconClicked={iconUserSettingsClicked} icon={iconUserSettings} path="/user-settings" name="User Settings"></NavButtons>}
                     </nav>
                 </header>
             )}
+
             {children}
         </>
     );
