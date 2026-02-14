@@ -5,11 +5,20 @@ import { redirect } from "next/navigation";
 export async function requireUser(location: string) {
   const session = (await cookies()).get("session")?.value;
 
-  // Leggi l'URL completo dagli headers
-  const headersList = await headers();
-  const fullUrl = headersList.get("x-url") || headersList.get("referer") || "";
-  const url = new URL(fullUrl || "http://localhost");
-  const userParam = url.searchParams.get("user");
+  let userParam: string | null = null;
+
+  try {
+    // Prova a leggere l'URL dagli headers
+    const headersList = await headers();
+    const referer = headersList.get("referer");
+
+    if (referer) {
+      const url = new URL(referer);
+      userParam = url.searchParams.get("user");
+    }
+  } catch (error) {
+    console.log("Non riesco a leggere l'URL dagli headers:", error);
+  }
 
   console.log("Requested location:", location);
   console.log("User param from URL:", userParam);
