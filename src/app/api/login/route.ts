@@ -31,8 +31,8 @@ export async function POST(req: Request) {
     console.log("✅ Creating session:", sessionId);
 
     await sql`
-        INSERT INTO sessions (id, user_id, created_at)
-        VALUES (${sessionId}, ${user.id}, NOW())
+        INSERT INTO sessions (id, user_id, created_at, expires_at)
+        VALUES (${sessionId}, ${user.id}, NOW(), NOW() + INTERVAL '20 minutes')
     `;
 
     // Usa cookies() di Next.js invece di Set-Cookie manualmente
