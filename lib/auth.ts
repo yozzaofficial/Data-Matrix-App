@@ -1,21 +1,24 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { sql } from "./db";
 import { redirect } from "next/navigation";
 
 export async function requireUser(location: string) {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("session")?.value;
-  const autoLoginUser = cookieStore.get("auto_login_user")?.value;
+  const session = (await cookies()).get("session")?.value;
+
+  // Leggi l'URL completo dagli headers
+  const headersList = await headers();
+  const fullUrl = headersList.get("x-url") || headersList.get("referer") || "";
+  const url = new URL(fullUrl || "http://localhost");
+  const userParam = url.searchParams.get("user");
 
   console.log("Requested location:", location);
+  console.log("User param from URL:", userParam);
 
-  // Se non c'è sessione, redirect a login passando anche il parametro user se presente
+  // Se non c'è sessione, redirect a login con il parametro user se presente
   if (!session) {
     const params = new URLSearchParams({ path: location });
-    if (autoLoginUser) {
-      params.set("user", autoLoginUser);
-      // Rimuovi il cookie temporaneo
-      cookieStore.delete("auto_login_user");
+    if (userParam) {
+      params.set("user", userParam);
     }
     redirect(`/login?${params.toString()}`);
   }
