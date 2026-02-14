@@ -18,7 +18,9 @@ function LoginForm() {
                 });
 
                 if (res.ok) {
-                    window.location.href = "/todo?user=user";
+                    // Salva il parametro in un cookie temporaneo
+                    document.cookie = "auto_login_user=user; path=/; max-age=10";
+                    window.location.href = "/todo";
                 } else {
                     setError("Auto-login fallito");
                 }
@@ -47,9 +49,7 @@ function LoginForm() {
         });
 
         if (res.ok) {
-            const params = otherParams.toString();
-            const fullUrl = params ? `${redirectPath}?${params}` : redirectPath;
-            window.location.href = fullUrl;
+            window.location.href = redirectPath;
         } else {
             setError("Nome o password errati");
         }
