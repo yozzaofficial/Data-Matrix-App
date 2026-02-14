@@ -22,7 +22,7 @@ function LoginForm() {
 
                 if (res.ok) {
                     // Il path già contiene tutto: "todo?user=user"
-                    window.location.href = `/${pathValue}`;
+                    window.location.href = `${pathValue}`;
                 } else {
                     setError("Auto-login fallito");
                 }

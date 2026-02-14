@@ -5,11 +5,10 @@ import { redirect } from "next/navigation";
 export async function requireUser(location: string) {
   const session = (await cookies()).get("session")?.value;
 
-  // Log utile per debug
   console.log("Requested location:", location);
 
-  // Se non c'è sessione, redirect a login con query string corretta
-  if (!session) redirect(`/login?path=${location}`);
+  // Se non c'è sessione, redirect a login
+  if (!session) redirect(`/login?path=${encodeURIComponent(location)}`);
 
   const rows = await sql`
     SELECT u.id, u.nome, u.rank
@@ -21,5 +20,5 @@ export async function requireUser(location: string) {
   // Se sessione non valida, redirect a login
   if (!rows[0]) redirect(`/login?path=${encodeURIComponent(location)}`);
 
-  return rows[0]; // ritorna l’utente
+  return rows[0];
 }
