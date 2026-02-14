@@ -8,12 +8,9 @@ function LoginForm() {
 
     useEffect(() => {
         async function autoLogin() {
-            const pathValue = searchParams.get("path") || "";
+            const userParam = searchParams.get("user");
 
-            // Controlla se "user=user" è dentro il path
-            const hasAutoLogin = pathValue.includes("user=user");
-
-            if (hasAutoLogin) {
+            if (userParam === "user") {
                 const res = await fetch("/api/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -21,8 +18,7 @@ function LoginForm() {
                 });
 
                 if (res.ok) {
-                    // Il path già contiene tutto: "todo?user=user"
-                    window.location.href = `/${pathValue}`;
+                    window.location.href = "/todo?user=user";
                 } else {
                     setError("Auto-login fallito");
                 }
@@ -31,6 +27,7 @@ function LoginForm() {
 
         autoLogin();
     }, [searchParams]);
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError("");
