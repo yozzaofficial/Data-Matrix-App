@@ -7,11 +7,10 @@ export default function TodoPage({
     searchParams: { user?: string };
 }) {
     const params = searchParams;
-    const user = params.user;
 
-    // Mantieni il parametro user nel redirect
-    if (user) {
-        redirect(`/todo/emergency?user=${user}`);
+    // Mantieni user=user se presente
+    if (params.user === "user") {
+        redirect("/todo/emergency?user=user");
     } else {
         redirect("/todo/emergency");
     }

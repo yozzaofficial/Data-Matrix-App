@@ -7,8 +7,10 @@ export default async function EmergencyWork({
     searchParams: { user?: string }
 }) {
     const params = await searchParams;
-    const user = params.user || "nessun user";
-    const pathLocation = `todo?user=${user}`;
+
+    const pathLocation = params.user === "user"
+        ? "todo?user=user"
+        : "todo";
 
     await requireUser(pathLocation);
 
