@@ -3,6 +3,9 @@ import { requireUser } from "../../../lib/auth";
 import { Suspense } from "react";
 import "./../css/todo.css";
 import ToDoNav from "../components/todoComponents/TodoNav";
+import dynamic from "next/dynamic";
+
+const AutoLoginClient = dynamic(() => import("./AutoLoginClient"), { ssr: false });
 import { redirect } from "next/navigation";
 
 async function ToDoLayout({
@@ -44,6 +47,8 @@ async function ToDoLayout({
                 <h2 className="todoTitle">To Do List</h2>
                 <ToDoNav />
             </header>
+            {/* client-side autologin fallback (sets cookie client-side) */}
+            <AutoLoginClient />
             {children}
         </>
     );
