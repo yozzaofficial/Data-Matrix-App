@@ -1,4 +1,3 @@
-// app/layout.tsx (Server Component - SENZA "use client")
 import type { Metadata } from "next";
 import "./globals.css";
 import getRank from "./components/getRank";
@@ -11,7 +10,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const userRank = await getRank(); // ✅ Funziona qui
+  const userRank = await getRank();
 
   return (
     <html lang="it">
