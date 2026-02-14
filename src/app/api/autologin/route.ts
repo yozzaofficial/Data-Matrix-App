@@ -29,12 +29,29 @@ export async function GET(req: Request) {
       VALUES (${sessionId}, ${found.id})
     `;
 
-        // Redirect to the requested path and set the session cookie
+        // Return a small HTML page that sets the cookie client-side and redirects.
+        // Some hosts (Netlify) may perform internal redirects that prevent the
+        // Set-Cookie header from being applied to the client, so using JS to set
+        // document.cookie ensures the browser will have the cookie before the
+        // following navigation. We also include a Set-Cookie header as a best-effort
+        // server-side fallback.
         const location = path ? `/${path}` : "/todo";
-        return new Response(null, {
-            status: 307,
+        const body = `<!doctype html><html><head><meta charset="utf-8"><title>Autologin</title></head><body>
+    <script>
+      // set cookie (non-HttpOnly) so client's next request will include it
+      document.cookie = "session=${sessionId}; Path=/; SameSite=Lax";
+      // fallback: navigate to destination
+      window.location.replace("${location}");
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0;url=${location}">
+    </noscript>
+    </body></html>`;
+
+        return new Response(body, {
+            status: 200,
             headers: {
-                Location: location,
+                "Content-Type": "text/html; charset=utf-8",
                 "Set-Cookie": `session=${sessionId}; HttpOnly; Path=/; SameSite=Lax`,
             },
         });
