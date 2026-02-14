@@ -3,9 +3,7 @@ import { requireUser } from "../../../lib/auth";
 import { Suspense } from "react";
 import "./../css/todo.css";
 import ToDoNav from "../components/todoComponents/TodoNav";
-import { cookies } from "next/headers";
-import { randomUUID } from "crypto";
-import { sql } from "../../../lib/db";
+import { redirect } from "next/navigation";
 
 async function ToDoLayout({
     children,
@@ -18,9 +16,8 @@ async function ToDoLayout({
     // If the request includes ?user=user and there's no active session,
     // create a session server-side and set the cookie so the user is
     // auto-logged-in when visiting /todo?user=user
-    // cookies() here returns a promise for the request cookies (per lib/auth pattern)
-    const cookieStore = (await cookies()) as any;
-    const currentSession = cookieStore.get("session")?.value;
+    // Check existing session cookie
+    const currentSession = (await (await import("next/headers")).cookies())?.get("session")?.value;
 
     // Normalize search param
     let userParam: string | null = null;
@@ -30,32 +27,13 @@ async function ToDoLayout({
         else if (Array.isArray(raw) && raw.length) userParam = raw[0];
     }
 
-    if (!currentSession && userParam === "user") {
-        // Try to find the user and create a session for them
-        const rows = await sql`
-            SELECT id
-            FROM users
-            WHERE LOWER(nome) = LOWER(${userParam})
-            LIMIT 1
-        `;
-
-        const found = rows[0];
-        if (found) {
-            const sessionId = randomUUID();
-            await sql`
-                INSERT INTO sessions (id, user_id)
-                VALUES (${sessionId}, ${found.id})
-            `;
-
-            // Set the session cookie so subsequent requireUser() will see it
-            cookieStore.set({
-                name: "session",
-                value: sessionId,
-                httpOnly: true,
-                path: "/",
-                sameSite: "lax",
-            });
-        }
+    // If no session and userParam present, redirect to the autologin API
+    // The API will create the session and set the cookie via Set-Cookie header,
+    // then redirect back to the requested path. Doing this in an API route
+    // is more reliable across adapters/hosts (Netlify, Vercel, etc.).
+    if (!currentSession && userParam) {
+        const params = new URLSearchParams({ user: String(userParam), path: "todo" });
+        redirect(`/api/autologin?${params.toString()}`);
     }
 
     const user = await requireUser("todo");
