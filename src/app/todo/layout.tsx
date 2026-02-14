@@ -3,9 +3,7 @@ import { requireUser } from "../../../lib/auth";
 import { Suspense } from "react";
 import "./../css/todo.css";
 import ToDoNav from "../components/todoComponents/TodoNav";
-import dynamic from "next/dynamic";
-
-const AutoLoginClient = dynamic(() => import("./AutoLoginClient"), { ssr: false });
+import AutoLoginClient from "./AutoLoginClient";
 import { redirect } from "next/navigation";
 
 async function ToDoLayout({
