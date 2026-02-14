@@ -73,12 +73,14 @@ async function ToDoLayout({
 
 export default function ToDoList({
     children,
+    searchParams,
 }: {
     children?: React.ReactNode;
+    searchParams?: { [key: string]: string | string[] | undefined };
 }) {
     return (
         <Suspense fallback={<div>Caricamento...</div>}>
-            <ToDoLayout>{children}</ToDoLayout>
+            <ToDoLayout searchParams={searchParams}>{children}</ToDoLayout>
         </Suspense>
     );
 }
