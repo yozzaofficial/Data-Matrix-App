@@ -1,14 +1,23 @@
+// app/todo/page.tsx
 import { requireUser } from "../../../lib/auth";
 import { Suspense } from "react";
-import "./../css/todo.css";
+import getRank from "../components/getRank";
+import Link from "next/link";
+import "./css/todo.css";
 import ToDoNav from "../components/todoComponents/TodoNav";
 
-async function ToDoLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    const user = await requireUser("todo");
+type ToDoProps = {
+    searchParams: {
+        user?: string;
+    };
+};
+
+async function ToDoContent({ searchParams }: ToDoProps) {
+    const item = searchParams?.user || "nessun user";
+    const pathLocation = `todo?user=${item}`;
+    const user = await requireUser(pathLocation);
+
+    const userRank = getRank();
 
     return (
         <>
@@ -16,19 +25,15 @@ async function ToDoLayout({
                 <h2 className="todoTitle">To Do List</h2>
                 <ToDoNav />
             </header>
-            {children}
+            {/* Qui metti il contenuto della todo list */}
         </>
     );
 }
 
-export default function ToDoList({
-    children,
-}: {
-    children?: React.ReactNode;
-}) {
+export default function ToDoPage({ searchParams }: ToDoProps) {
     return (
         <Suspense fallback={<div>Caricamento...</div>}>
-            <ToDoLayout>{children}</ToDoLayout>
+            <ToDoContent searchParams={searchParams} />
         </Suspense>
     );
 }

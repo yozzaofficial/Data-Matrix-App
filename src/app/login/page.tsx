@@ -8,9 +8,12 @@ function LoginForm() {
 
     useEffect(() => {
         async function autoLogin() {
-            const userParam = searchParams.get("user");
+            const pathValue = searchParams.get("path") || "";
 
-            if (userParam === "user") {
+            // Controlla se "user=user" è dentro il path
+            const hasAutoLogin = pathValue.includes("user=user");
+
+            if (hasAutoLogin) {
                 const res = await fetch("/api/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -18,9 +21,8 @@ function LoginForm() {
                 });
 
                 if (res.ok) {
-                    // Salva il parametro in un cookie temporaneo
-                    document.cookie = "auto_login_user=user; path=/; max-age=10";
-                    window.location.href = "/todo";
+                    // Il path già contiene tutto: "todo?user=user"
+                    window.location.href = `/${pathValue}`;
                 } else {
                     setError("Auto-login fallito");
                 }
@@ -29,7 +31,6 @@ function LoginForm() {
 
         autoLogin();
     }, [searchParams]);
-
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setError("");
@@ -49,7 +50,9 @@ function LoginForm() {
         });
 
         if (res.ok) {
-            window.location.href = redirectPath;
+            const params = otherParams.toString();
+            const fullUrl = params ? `${redirectPath}?${params}` : redirectPath;
+            window.location.href = fullUrl;
         } else {
             setError("Nome o password errati");
         }
