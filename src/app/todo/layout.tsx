@@ -2,7 +2,6 @@
 import { Suspense } from "react";
 import "./../css/todo.css";
 import ToDoNav from "../components/todoComponents/TodoNav";
-import AutoLoginClient from "./AutoLoginClient";
 
 export default function ToDoLayout({
     children,
@@ -11,7 +10,6 @@ export default function ToDoLayout({
 }) {
     return (
         <Suspense fallback={<div>Caricamento...</div>}>
-            <AutoLoginClient />
             <header className="todoHeader">
                 <h2 className="todoTitle">To Do List</h2>
                 <ToDoNav />
