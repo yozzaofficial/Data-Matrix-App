@@ -1,5 +1,4 @@
 import { sql } from "../../../../lib/db";
-import { randomUUID } from "crypto";
 import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
@@ -26,8 +25,7 @@ export async function POST(req: Request) {
         return new Response("Unauthorized", { status: 401 });
     }
 
-    const sessionId = randomUUID();
-
+    const sessionId = crypto.randomUUID();
     console.log("✅ Creating session:", sessionId);
 
     await sql`
