@@ -12,6 +12,9 @@
 .workList {
     list-style: none;
     padding: 0;
+    max-height: 620px;
+    overflow: auto;
+    scrollbar-width: none;
 }
 
 .listToDo h3 {
@@ -19,17 +22,51 @@
 }
 
 .work {
-    padding: 10px;
+    padding: 15px 10px;
+    font-size: 1.7em;
+    border: 1px solid black;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.work:not(:nth-of-type(1)) {
+    margin-top: 20px;
+}
+
+.todoWorkIcon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.emergencyIcon {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    animation: animationEmergencyTodo 1s infinite alternate;
 }
 
 .todoNav {
     font-size: 1.8em;
     display: flex;
     justify-content: flex-start;
-    margin-left: 20px;
+    margin-left: 10px;
     gap: 50px;
     margin-top: 25px;
     margin-bottom: 40px;
+}
+
+.todoNav::after {
+    content: "";
+    width: 0%;
 }
 
 .todoNav a {
@@ -38,14 +75,39 @@
 
 .todoNavActive {
     font-weight: 600;
+
 }
 
-.todoNavActive::after {
+.todoNav .todoNavActive::after {
     content: "";
     position: absolute;
-    width: 100%;
+    animation: animationNavTodo 0.2s forwards;
     height: 4px;
     background-color: green;
     top: 100%;
     left: 0;
+}
+
+@keyframes animationEmergencyTodo {
+    0% {
+        background-image: url("./../../../public/icon/emergencyIcon.png");
+
+    }
+
+    100% {
+        background-image: url("./../../../public/icon/emergencyIconFilled.png");
+
+    }
+}
+
+@keyframes animationNavTodo {
+    0% {
+        width: 0%;
+
+    }
+
+    100% {
+        width: 100%;
+
+    }
 }
