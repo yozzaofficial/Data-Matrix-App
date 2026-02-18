@@ -1,30 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import Image, { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from "next/image";
+import { useSearchParams, usePathname } from "next/navigation";
 
-type props = {
-    pathname: string,
-    iconClicked: StaticImageData,
-    icon: StaticImageData,
-    path: string,
-    name: string
-}
-export default function NavButtons({ pathname, iconClicked, icon, path, name }: props) {
+type Props = {
+    path: string;
+    iconClicked: StaticImageData;
+    icon: StaticImageData;
+    name: string;
+};
 
-    return <>
-        <div className="navButton">
+export default function NavButtons({ path, iconClicked, icon, name }: Props) {
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    // Controllo se il pulsante è attivo
+    const isActive = (() => {
+        if (path.includes("?")) {
+            const [basePath, query] = path.split("?");
+            const params = new URLSearchParams(query);
+            const allMatch = Array.from(params.entries()).every(
+                ([key, value]) => searchParams.get(key) === value
+            );
+            return pathname === basePath && allMatch;
+        } else {
+            return pathname === path;
+        }
+    })();
+
+    return (
+        <div className={`navButton ${isActive ? "active" : ""}`}>
             <Link href={path}>
-                <div className="icon iconWork">
+                <div className="icon">
                     <Image
-                        src={pathname === path ? iconClicked : icon}
-                        alt="Logo"
+                        src={isActive ? iconClicked : icon}
+                        alt={name}
                         width={45}
                         height={45}
                     />
                 </div>
-                {name}
+                <span>{name}</span>
             </Link>
         </div>
-    </>
+    );
 }

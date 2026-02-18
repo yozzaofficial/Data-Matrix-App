@@ -1,42 +1,46 @@
 export const fakeData = [
     {
         id: 1,
-        name: "Compressore",
-        description: "Compressore industriale aria",
-        toDo: "Controllare pressione e filtri",
+        name: "Compressor",
+        description: "Industrial air compressor",
+        toDo: "Check pressure and filters",
         toDoValue: true,
-        lastMaintance: "2025-01-15",
-        note: "Urgente",
-        emergency: true
+        lastMaintenance: "2025-01-15",
+        note: "Urgent",
+        emergency: true,
+        loadedBy: "John Doe"
     },
     {
         id: 2,
-        name: "Generatore",
-        description: "Generatore diesel 50kW",
-        toDo: "Cambio olio",
+        name: "Generator",
+        description: "Diesel generator 50kW",
+        toDo: "Change oil",
         toDoValue: false,
-        lastMaintance: "2024-11-03",
-        note: "Programmato",
-        emergency: false
+        lastMaintenance: "2024-11-03",
+        note: "Scheduled",
+        emergency: false,
+        loadedBy: "Jane Smith"
     },
     {
         id: 3,
-        name: "Carrello elevatore",
-        description: "Muletto elettrico",
-        toDo: "Verifica batteria",
+        name: "Forklift",
+        description: "Electric forklift",
+        toDo: "Check battery",
         toDoValue: true,
-        lastMaintance: "2025-02-01",
+        lastMaintenance: "2025-02-01",
         note: "OK",
-        emergency: false
+        emergency: false,
+        loadedBy: "Mark Johnson"
     },
     {
         id: 4,
-        name: "Impianto HVAC",
-        description: "Climatizzazione uffici",
-        toDo: "Pulizia filtri",
-        toDoValue: false,
-        lastMaintance: "2024-12-20",
-        note: "Da pianificare",
-        emergency: false
+        name: "HVAC System",
+        description: "Office air conditioning system",
+        toDo: "Clean filters",
+        toDoValue: true,
+        lastMaintenance: "2024-12-20",
+        note: "To schedule",
+        emergency: false,
+        loadedBy: "Emily Davis"
     }
-]
+];

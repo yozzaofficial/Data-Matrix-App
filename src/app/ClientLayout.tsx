@@ -33,10 +33,10 @@ export default function ClientLayout({
             {!isLoginPage && (
                 <header className="mainHeader">
                     <nav>
-                        <NavButtons pathname="/todo?filter=emergency" iconClicked={iconWorkClicked} icon={iconWork} path="/todo?filter=emergency" name="To do"></NavButtons>
-                        <NavButtons pathname={pathname} iconClicked={iconDoneClicked} icon={iconDone} path="/done" name="Work Done"></NavButtons>
-                        {userRank === "admin" && <NavButtons pathname={pathname} iconClicked={iconNewWorkClicked} icon={iconNewWork} path="/new" name="Handle Work"></NavButtons>}
-                        {userRank === "admin" && <NavButtons pathname={pathname} iconClicked={iconUserSettingsClicked} icon={iconUserSettings} path="/user-settings" name="User Settings"></NavButtons>}
+                        <NavButtons iconClicked={iconWorkClicked} icon={iconWork} path="/todo?filter=emergency" name="To do"></NavButtons>
+                        <NavButtons iconClicked={iconDoneClicked} icon={iconDone} path="/done" name="Work Done"></NavButtons>
+                        {userRank === "admin" && <NavButtons iconClicked={iconNewWorkClicked} icon={iconNewWork} path="/new" name="Handle Work"></NavButtons>}
+                        {userRank === "admin" && <NavButtons iconClicked={iconUserSettingsClicked} icon={iconUserSettings} path="/user-settings" name="User Settings"></NavButtons>}
                     </nav>
                 </header>
             )}

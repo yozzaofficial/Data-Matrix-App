@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 export default function ToDoNav() {
     const searchParams = useSearchParams();
     const filter = searchParams.get("filter");
-
     return (
         <nav className="todoNav">
             <Link
