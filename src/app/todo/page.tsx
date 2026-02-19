@@ -12,6 +12,6 @@ export default function TodoPage() {
     }, clickAwayRef);
     return <div className="todoPage">
         <WorkList setOpenWorkDetail={setOpenWorkDetail} />
-        {openWorkDetail && <WorkDetail clickAwayRef={clickAwayRef} />}
+        {openWorkDetail && <WorkDetail clickAwayRef={clickAwayRef} setOpenWorkDetail={setOpenWorkDetail} />}
     </div>
 }

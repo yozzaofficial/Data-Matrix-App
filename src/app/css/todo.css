@@ -87,7 +87,7 @@
     position: absolute;
     animation: animationNavTodo 0.2s forwards;
     height: 4px;
-    background-color: green;
+    background-color: #ed4448;
     top: 100%;
     left: 0;
 }
@@ -107,6 +107,7 @@
     display: flex;
     flex-direction: column;
     align-content: flex-start;
+    overflow: hidden;
 }
 
 .workDetailTitle {
@@ -198,6 +199,39 @@
 .workDetailButtonCancel {
     background-color: #f4f4f4;
     color: #ed4448;
+}
+
+.closeIcon {
+    cursor: pointer;
+}
+
+.workConfirm {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    top: 0;
+    left: 100%;
+    border-radius: 10px;
+    padding: 25px 35px;
+}
+
+.workConfirmTransition {
+    animation: workConfirmAnimation 0.5s forwards;
+}
+
+@keyframes workConfirmAnimation {
+    0% {
+        display: none;
+    }
+
+    20% {
+        display: block;
+    }
+
+    100% {
+        left: 0;
+    }
 }
 
 @keyframes animationEmergencyTodo {
