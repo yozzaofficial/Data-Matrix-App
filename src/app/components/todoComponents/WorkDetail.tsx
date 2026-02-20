@@ -51,6 +51,6 @@ export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsTyp
             <button className="workDetailButton workDetailButtonCancel" onClick={() => setOpenWorkDetail(false)}>Cancel</button>
             <button className="workDetailButton" onClick={() => setIsWorkConfirmedOpen(true)}>Complete</button>
         </div>
-        <WorkConfirm isWorkConfirmOpen={isWorkConfirmedOpen} setOpenWorkDetail={setOpenWorkDetail} />
+        <WorkConfirm isWorkConfirmOpen={isWorkConfirmedOpen} setOpenWorkDetail={setOpenWorkDetail} setIsWorkConfirmOpen={setIsWorkConfirmedOpen}/>
     </div>
 }

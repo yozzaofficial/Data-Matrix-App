@@ -219,7 +219,74 @@
 .workConfirmTransition {
     animation: workConfirmAnimation 0.5s forwards;
 }
+.workConfirmTransitionLeft {
+    animation: workConfirmAnimationLeft 0.5s forwards;
+}
 
+.confirmWorkImgLabel{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+    width: min-content;
+    text-align: center;
+    cursor: pointer;
+}
+.confirmWorkImgDiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.confirmWorkImgList{
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    gap: 5px;
+    font-size: 0.6em;
+}
+#confirmWorkForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    font-size: 1.1em;
+}
+#confirmWorkForm div:not(:nth-of-type(3) label){
+    font-size: 1.1em;
+    font-weight: 500;
+}
+#confirmWorkForm div:not(:nth-of-type(3)):not(:nth-of-type(4)){
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+}
+#confirmWorkForm div{
+    width: 500px;
+}
+
+
+#confirmWorkForm select{
+    max-width: 380px;
+    font-size: 0.9em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+#confirmWorkForm select option{
+    max-width: 380px;
+    font-size: 0.5em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+#confirmWorkForm textarea{
+    max-width: 500px;
+    font-size: 1em;
+}
+.buttonField{
+    display: flex;
+    justify-content: space-between;
+}
 @keyframes workConfirmAnimation {
     0% {
         display: none;
@@ -231,6 +298,17 @@
 
     100% {
         left: 0;
+    }
+}
+@keyframes workConfirmAnimationLeft {
+    0% {
+        left: 0;
+    }
+    90%{
+        left:100%
+    }
+    100% {
+        display: none;
     }
 }
 
