@@ -22,6 +22,22 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
         }, 250);
     }, [workConfirmOut])
 
+    async function tryInsert() {
+        const res = await fetch("./../../api/insertNewWork", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({}),
+        });
+
+        if (res.ok) {
+            const user = await res.json();
+            console.log("Login OK:", user);
+        } else {
+            console.error("Login fallito");
+        }
+    }
+
+
     const onChangeImgInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
 
@@ -78,7 +94,7 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
                     </ul>
                 </div>
                 <div className="buttonField">
-                    <button type="submit" className="workDetailButton">Confirm</button>
+                    <button type="submit" className="workDetailButton" onClick={() => tryInsert}>Confirm</button>
                     <button type="button" className="workDetailButton workDetailButtonCancel" onClick={() => setWorkConfirmOut(true)}>Cancel</button>
                 </div>
 
