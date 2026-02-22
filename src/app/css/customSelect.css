@@ -1,0 +1,87 @@
+.workConfirm {
+
+    .customSelect {
+        padding: 0;
+        margin: 0;
+        font-size: 1em;
+        text-align: left;
+        list-style: none;
+        margin: 0;
+        position: absolute;
+        left: -1px;
+        top: 100%;
+        height: 0px;
+        transition: height 0.3s ease-in-out;
+        overflow: hidden;
+        --target-height: 0px;
+        z-index: 1;
+        background-color: white;
+    }
+
+    .customSelect li {
+        cursor: pointer;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border: 1px solid black;
+    }
+
+    .customSelect li {
+        border-top: 0px
+    }
+
+    .customSelect li:last-child {
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .selectCurrentValue {
+        font-size: 1.5em;
+        padding: 5px 10px;
+        border: 1px solid black;
+        display: inline-block;
+        position: relative;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .borderRadiusSelect {
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+
+    .showOptions {
+        animation: selectAnimation 0.15s ease-in forwards;
+    }
+
+    .hideOptions {
+        animation: selectAnimationClosed 0.15s ease-out forwards;
+    }
+
+}
+
+@keyframes selectAnimation {
+    0% {
+        height: 0px;
+    }
+
+    100% {
+        height: var(--target-height);
+
+    }
+
+}
+
+@keyframes selectAnimationClosed {
+    0% {
+        height: var(--target-height);
+    }
+
+    100% {
+        height: 0px;
+    }
+
+}

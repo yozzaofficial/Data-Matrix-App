@@ -3,24 +3,24 @@ import { ChangeEvent } from "react"
 import iconX from "./../../../../public/icon/iconX.png"
 import Image from "next/image"
 import React from "react"
-
+import CustomSelect from "./../CustomSelect"
 type propsType = {
     isWorkConfirmOpen: boolean,
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
     setIsWorkConfirmOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail,setIsWorkConfirmOpen }: propsType) {
+export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setIsWorkConfirmOpen }: propsType) {
     const [fileName, setFileName] = React.useState<String[]>([]); // inizializza array vuoto
-    const [workConfirmOut,setWorkConfirmOut] = React.useState(false)
+    const [workConfirmOut, setWorkConfirmOut] = React.useState(false)
 
 
-    React.useEffect(()=>{
-         setTimeout(() => {
-        setIsWorkConfirmOpen(false);
-        setWorkConfirmOut(false); 
-    }, 500); 
-    },[workConfirmOut])
+    React.useEffect(() => {
+        setTimeout(() => {
+            setIsWorkConfirmOpen(false);
+            setWorkConfirmOut(false);
+        }, 250);
+    }, [workConfirmOut])
 
     const onChangeImgInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
@@ -40,19 +40,18 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail,setIs
         </header>
         <main>
             <div id="confirmWorkForm">
-                
+
                 <div>
                     <label htmlFor="confirmWorkTechnician">Technician:</label>
-                    <select id="confirmWorkTechnician">
-                        <option value=""></option>
-                        <option value="1">Marco Aurelio Gianni Secondo Me</option>
-                    </select>
+                    <div id="confirmWorkTechnician">
+                        <CustomSelect width={350} height={60} optionsValues={["", "Technician 1", "Technician 2", "Technician 3"]} />
+                    </div>
                 </div>
                 <div>
                     <label htmlFor="confirmWorkDesc">Description:</label>
-                    <textarea 
-                        
-                        id="confirmWorkDesc" 
+                    <textarea
+
+                        id="confirmWorkDesc"
                         name="confirmWorkDesc"
                         rows={4}          // numero di righe visibili
                         cols={50}         // larghezza (opzionale, puoi usare CSS)
@@ -62,9 +61,9 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail,setIs
                 <div className="confirmWorkImgDiv">
                     <label htmlFor="confirmWorkImg" className="confirmWorkImgLabel">
                         Image
-                      <input 
+                        <input
                             id="confirmWorkImg"
-                            type="file" 
+                            type="file"
                             name="images"
                             multiple
                             accept="image/*"
@@ -73,16 +72,16 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail,setIs
                         />
                     </label>
                     <ul className="confirmWorkImgList">
-                    {fileName?.map((name, index) => (
-                        <li key={index}>{name}</li>
-                    ))}
+                        {fileName?.map((name, index) => (
+                            <li key={index}>{name}</li>
+                        ))}
                     </ul>
                 </div>
                 <div className="buttonField">
                     <button type="submit" className="workDetailButton">Confirm</button>
-                    <button type="button" className="workDetailButton workDetailButtonCancel" onClick={()=>setWorkConfirmOut(true)}>Cancel</button>           
+                    <button type="button" className="workDetailButton workDetailButtonCancel" onClick={() => setWorkConfirmOut(true)}>Cancel</button>
                 </div>
-                
+
             </div>
         </main>
     </div>
