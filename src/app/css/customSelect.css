@@ -1,5 +1,7 @@
 .workConfirm {
 
+
+
     .customSelect {
         padding: 0;
         margin: 0;
@@ -37,7 +39,7 @@
     }
 
     .selectCurrentValue {
-        font-size: 1.5em;
+        font-size: 0.9em;
         padding: 5px 10px;
         border: 1px solid black;
         display: inline-block;
@@ -61,6 +63,10 @@
         animation: selectAnimationClosed 0.15s ease-out forwards;
     }
 
+}
+
+#confirmWorkTechnician {
+    font-size: 0.9em !important;
 }
 
 @keyframes selectAnimation {

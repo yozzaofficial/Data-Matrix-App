@@ -1,22 +1,29 @@
 import { Client } from "pg";
 
-export async function handler() {
+export const handler = async () => {
     const client = new Client({
         connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false }
+        ssl: { rejectUnauthorized: false },
     });
 
-    await client.connect();
+    try {
+        await client.connect();
 
-    await client.query(`
-    DELETE FROM sessions
-    WHERE expires_at < NOW()
-  `);
+        await client.query(`
+      DELETE FROM sessions
+      WHERE expires_at < NOW()
+    `);
 
-    await client.end();
-
-    return {
-        statusCode: 200,
-        body: "Expired sessions cleaned"
-    };
-}
+        return {
+            statusCode: 200,
+            body: "Expired sessions cleaned",
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify(error),
+        };
+    } finally {
+        await client.end();
+    }
+};
