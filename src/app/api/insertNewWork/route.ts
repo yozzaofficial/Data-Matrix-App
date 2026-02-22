@@ -7,14 +7,19 @@ export async function POST(request: Request) {
         const body = await request.json();
         if (!body) return NextResponse.json({ error: "Missing body" }, { status: 400 });
 
-        // const { iditem, nameitem, todo, lastMaintenance, note, loadedBy } = body;
-        const iditem = 1
-        const nameitem = "ciao";
-        const todo = "niente";
-        const lastMaintenance = "ora";
-        const note = "salve";
-        const loadedBy = "me";
-        const emergency = false
+        // Prefer values from the request body; fallback to sensible defaults.
+        const {
+            iditem = undefined,
+            nameitem = "",
+            todo = "",
+            lastMaintenance = null,
+            note = "",
+            loadedBy = "",
+            emergency = false,
+        } = body as Record<string, any>;
+
+        console.log("/api/insertNewWork payload:", { iditem, nameitem, todo, lastMaintenance, note, loadedBy, emergency });
+
         const result = await sql`
       INSERT INTO maintenance_items
       (iditem, nameitem, todo, last_maintenance, note, emergency, loaded_by)
@@ -22,8 +27,11 @@ export async function POST(request: Request) {
       RETURNING *;
     `;
 
+        console.log("/api/insertNewWork result:", result);
+
         return NextResponse.json(result, { status: 200 });
     } catch (error) {
+        console.error("/api/insertNewWork error:", error);
         return NextResponse.json({ error: String(error) }, { status: 500 });
     }
 }
