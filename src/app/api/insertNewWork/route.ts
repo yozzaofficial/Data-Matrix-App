@@ -4,48 +4,40 @@ import { sql } from "../../../../lib/db";
 
 export async function POST(request: Request) {
     try {
-        const body = await request.json();
-        if (!body) return NextResponse.json({ error: "Missing body" }, { status: 400 });
+        console.log("🔍 insertNewWork: received request");
 
-        // Prefer values from the request body; fallback to sensible defaults.
-        const {
-            id = undefined,
-            nameitem = "",
-            todo = "",
-            lastMaintenance = null,
-            note = "",
-            loadedBy = "",
-            emergency = false,
-        } = body as Record<string, any>;
+        // For now, use hardcoded test values to verify the schema works
+        const iditem = 1;
+        const nameitem = "Test Item";
+        const todo = "Test Todo";
+        const last_maintenance = new Date().toISOString();
+        const note = "Test note";
+        const emergency = false;
+        const loaded_by = "test_user";
 
-        console.log("/api/insertNewWork payload:", { id, nameitem, todo, lastMaintenance, note, loadedBy, emergency });
+        console.log("📝 insertNewWork: inserting with values:", {
+            iditem,
+            nameitem,
+            todo,
+            last_maintenance,
+            note,
+            emergency,
+            loaded_by,
+        });
 
-        // If id is provided by the client, use it; otherwise omit it and let
-        // the DB use gen_random_uuid() to generate the UUID.
-        let result;
-        if (id) {
-            // Client provided an explicit id (UUID)
-            result = await sql`
-                INSERT INTO maintenance_items
-                (id, nameitem, todo, last_maintenance, note, emergency, loaded_by)
-                VALUES (${id}, ${nameitem}, ${todo}, ${lastMaintenance}, ${note}, ${emergency}, ${loadedBy})
-                RETURNING *;
-            `;
-        } else {
-            // Omit id; DB will use gen_random_uuid() default
-            result = await sql`
-                INSERT INTO maintenance_items
-                (nameitem, todo, last_maintenance, note, emergency, loaded_by)
-                VALUES (${nameitem}, ${todo}, ${lastMaintenance}, ${note}, ${emergency}, ${loadedBy})
-                RETURNING *;
-            `;
-        }
+        const result = await sql`
+            INSERT INTO maintenance_items
+            (iditem, nameitem, todo, last_maintenance, note, emergency, loaded_by)
+            VALUES (${iditem}, ${nameitem}, ${todo}, ${last_maintenance}, ${note}, ${emergency}, ${loaded_by})
+            RETURNING *;
+        `;
 
-        console.log("/api/insertNewWork result:", result);
+        console.log("✅ insertNewWork: insert successful, result:", result);
 
-        return NextResponse.json(result, { status: 200 });
+        return NextResponse.json(result[0], { status: 200 });
     } catch (error) {
-        console.error("/api/insertNewWork error:", error);
-        return NextResponse.json({ error: String(error) }, { status: 500 });
+        console.error("❌ insertNewWork error:", error);
+        const message = error instanceof Error ? error.message : String(error);
+        return NextResponse.json({ error: message }, { status: 500 });
     }
 }
