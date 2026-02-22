@@ -20,12 +20,22 @@ export async function POST(request: Request) {
 
         console.log("/api/insertNewWork payload:", { iditem, nameitem, todo, lastMaintenance, note, loadedBy, emergency });
 
+        // If iditem is missing, generate a fallback numeric id based on timestamp.
+        // Ideally the DB should supply a serial/UUID default, but this prevents
+        // the not-null constraint error during deploy when the client doesn't
+        // provide an id.
+        let finalId = iditem;
+        if (finalId === undefined || finalId === null) {
+            finalId = Date.now();
+            console.log("/api/insertNewWork: generated iditem", finalId);
+        }
+
         const result = await sql`
-      INSERT INTO maintenance_items
-      (iditem, nameitem, todo, last_maintenance, note, emergency, loaded_by)
-      VALUES (${iditem}, ${nameitem}, ${todo}, ${lastMaintenance}, ${note}, ${emergency}, ${loadedBy})
-      RETURNING *;
-    `;
+            INSERT INTO maintenance_items
+            (iditem, nameitem, todo, last_maintenance, note, emergency, loaded_by)
+            VALUES (${finalId}, ${nameitem}, ${todo}, ${lastMaintenance}, ${note}, ${emergency}, ${loadedBy})
+            RETURNING *;
+        `;
 
         console.log("/api/insertNewWork result:", result);
 
