@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import emergencyIcon from "./../../../../public/icon/emergencyicon.png"
 import arrowIcon from "./../../../../public/icon/iconArrow.png";
 import Image from "next/image";
+import { delay } from "../delay";
 
 type WorkListProps = {
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>
@@ -29,7 +30,8 @@ export default function WorkList({ setOpenWorkDetail }: WorkListProps) {
         return true;
     });
 
-    function openWorkDetail(id: number) {
+    async function openWorkDetail(id: number) {
+        await delay(500);
         if (filter === "emergency")
             router.replace(`todo?filter=emergency&id=${id}`)
         else
