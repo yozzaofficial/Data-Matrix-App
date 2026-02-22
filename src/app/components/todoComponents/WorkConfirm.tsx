@@ -94,7 +94,7 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
                     </ul>
                 </div>
                 <div className="buttonField">
-                    <button type="submit" className="workDetailButton" onClick={() => tryInsert}>Confirm</button>
+                    <button type="submit" className="workDetailButton" onClick={() => tryInsert()}>Confirm</button>
                     <button type="button" className="workDetailButton workDetailButtonCancel" onClick={() => setWorkConfirmOut(true)}>Cancel</button>
                 </div>
 
