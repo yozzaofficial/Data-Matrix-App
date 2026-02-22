@@ -254,8 +254,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 30px;
-    font-size: 1.1em;
+    gap: 40px;
+    font-size: 1em;
 }
 
 #confirmWorkForm div:not(:nth-of-type(3) label) {
@@ -299,7 +299,8 @@
 
 .buttonField {
     display: flex;
-    justify-content: space-between;
+    gap: 50px;
+    margin-top: 30px;
 }
 
 @keyframes workConfirmAnimation {
