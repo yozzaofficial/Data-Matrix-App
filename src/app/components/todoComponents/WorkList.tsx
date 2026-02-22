@@ -31,11 +31,12 @@ export default function WorkList({ setOpenWorkDetail }: WorkListProps) {
     });
 
     async function openWorkDetail(id: number) {
-        await delay(500);
+
         if (filter === "emergency")
             router.replace(`todo?filter=emergency&id=${id}`)
         else
             router.replace(`todo?filter=regular&id=${id}`)
+        await delay(300);
         setOpenWorkDetail(true);
     }
     const liElements = filteredData.map(e => (
