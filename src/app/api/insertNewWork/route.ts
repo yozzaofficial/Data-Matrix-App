@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 
         // Prefer values from the request body; fallback to sensible defaults.
         const {
-            iditem = undefined,
+            id = undefined,
             nameitem = "",
             todo = "",
             lastMaintenance = null,
@@ -18,24 +18,28 @@ export async function POST(request: Request) {
             emergency = false,
         } = body as Record<string, any>;
 
-        console.log("/api/insertNewWork payload:", { iditem, nameitem, todo, lastMaintenance, note, loadedBy, emergency });
+        console.log("/api/insertNewWork payload:", { id, nameitem, todo, lastMaintenance, note, loadedBy, emergency });
 
-        // If iditem is missing, generate a fallback numeric id based on timestamp.
-        // Ideally the DB should supply a serial/UUID default, but this prevents
-        // the not-null constraint error during deploy when the client doesn't
-        // provide an id.
-        let finalId = iditem;
-        if (finalId === undefined || finalId === null) {
-            finalId = Date.now();
-            console.log("/api/insertNewWork: generated iditem", finalId);
+        // If id is provided by the client, use it; otherwise omit it and let
+        // the DB use gen_random_uuid() to generate the UUID.
+        let result;
+        if (id) {
+            // Client provided an explicit id (UUID)
+            result = await sql`
+                INSERT INTO maintenance_items
+                (id, nameitem, todo, last_maintenance, note, emergency, loaded_by)
+                VALUES (${id}, ${nameitem}, ${todo}, ${lastMaintenance}, ${note}, ${emergency}, ${loadedBy})
+                RETURNING *;
+            `;
+        } else {
+            // Omit id; DB will use gen_random_uuid() default
+            result = await sql`
+                INSERT INTO maintenance_items
+                (nameitem, todo, last_maintenance, note, emergency, loaded_by)
+                VALUES (${nameitem}, ${todo}, ${lastMaintenance}, ${note}, ${emergency}, ${loadedBy})
+                RETURNING *;
+            `;
         }
-
-        const result = await sql`
-            INSERT INTO maintenance_items
-            (iditem, nameitem, todo, last_maintenance, note, emergency, loaded_by)
-            VALUES (${finalId}, ${nameitem}, ${todo}, ${lastMaintenance}, ${note}, ${emergency}, ${loadedBy})
-            RETURNING *;
-        `;
 
         console.log("/api/insertNewWork result:", result);
 
