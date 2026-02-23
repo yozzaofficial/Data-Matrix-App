@@ -31,7 +31,6 @@ export default function WorkList({ setOpenWorkDetail }: WorkListProps) {
     });
 
     async function openWorkDetail(id: number) {
-
         if (filter === "emergency")
             router.replace(`todo?filter=emergency&id=${id}`)
         else

@@ -1,0 +1,97 @@
+.workDoneMain{
+    position:relative;
+}
+
+.workdoneTitle{
+    font-size: 2.5em;
+}
+
+.doneNav {
+    font-size: 1.8em;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 10px;
+    gap: 50px;
+    margin-top: 25px;
+    margin-bottom: 40px;
+}
+.doneNav::after {
+    content: "";
+    width: 0%;
+}
+
+.doneNav a {
+    position: relative;
+}
+
+.doneNavActive {
+    font-weight: 600;
+
+}
+
+.doneNav .doneNavActive::after {
+    content: "";
+    position: absolute;
+    animation: animationNavTodo 0.2s forwards;
+    height: 4px;
+    background-color: #ed4448;
+    top: 100%;
+    left: 0;
+}
+
+.workDoneList{
+    list-style: none;
+    padding: 0;
+    max-height: 620px;
+    overflow: auto;
+    scrollbar-width: none;
+    margin-top: 10px;
+}
+
+
+.workDone {
+    padding: 15px 10px;
+    font-size: 1.7em;
+    border: 1px solid black;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.workDone:not(:nth-of-type(1)) {
+    margin-top: 20px;
+}
+
+.workDetail{
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    padding: 25px 35px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    overflow: hidden;
+    z-index: 1;
+}
+.doneWorkIcon{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+.workDetailTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

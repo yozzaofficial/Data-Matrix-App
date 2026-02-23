@@ -1,8 +1,17 @@
+"use client"
+import React from "react"
+import WorkDoneList from "./../components/doneComponents/WorkDoneList"
+import WorkDoneInfo from "../components/doneComponents/WorkDoneInfo";
 export default function DonePage() {
-    return (
-        <main style={{ padding: "16px" }}>
-            <h3>Done</h3>
-            <p>Questa è la pagina Done.</p>
+
+    const [openWorkDetail, setOpenWorkDetail] = React.useState(false);
+
+    return (<>
+        <main className="workDoneMain">
+            <WorkDoneList setOpenWorkDetail={setOpenWorkDetail}/>
+            {openWorkDetail && <WorkDoneInfo setOpenWorkDetail={setOpenWorkDetail}/>}
         </main>
+       
+    </>
     );
 }

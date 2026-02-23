@@ -37,7 +37,7 @@ export default function CustomSelect({ width, height, optionsValues }: CustomSel
     }, [isOpen]);
 
     const liElements = optionsValues.map((v) => {
-        return <li style={propsStyle} onClick={(e) => { e.stopPropagation(); setOptionsValue(v == "" ? defaultSelectValue : v) }}>{v}</li>
+        return <li key={v} style={propsStyle} onClick={(e) => { e.stopPropagation(); setOptionsValue(v == "" ? defaultSelectValue : v) }}>{v}</li>
     })
 
     return <>

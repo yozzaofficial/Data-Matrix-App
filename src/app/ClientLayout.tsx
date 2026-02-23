@@ -13,6 +13,8 @@ import iconNewWork from "./../../public/icon/newWork.png";
 import iconNewWorkClicked from "./../../public/icon/newWorkClicked.png";
 import iconUserSettings from "./../../public/icon/userSetting.png";
 import iconUserSettingsClicked from "./../../public/icon/userSettingClicked.png";
+import iconReport from "./../../public/icon/reportIcon.png";
+import iconReportFilled from "./../../public/icon/reportIconFilled.png";
 import NavButtons from "./components/NavButtons";
 import MainHeader2 from "./components/MainHeader2";
 export default function ClientLayout({
@@ -35,7 +37,8 @@ export default function ClientLayout({
                     <nav>
                         <NavButtons iconClicked={iconWorkClicked} icon={iconWork} path="/todo?filter=emergency" name="To do"></NavButtons>
                         <NavButtons iconClicked={iconDoneClicked} icon={iconDone} path="/done" name="Work Done"></NavButtons>
-                        {userRank === "admin" && <NavButtons iconClicked={iconNewWorkClicked} icon={iconNewWork} path="/new" name="Handle Work"></NavButtons>}
+                        {userRank === "admin" ? <NavButtons iconClicked={iconNewWorkClicked} icon={iconNewWork} path="/new" name="Handle Work"></NavButtons> :
+                            <NavButtons iconClicked={iconReportFilled} icon={iconReport} path="/report" name="Report"></NavButtons>}
                         {userRank === "admin" && <NavButtons iconClicked={iconUserSettingsClicked} icon={iconUserSettings} path="/user-settings" name="User Settings"></NavButtons>}
                     </nav>
                 </header>
