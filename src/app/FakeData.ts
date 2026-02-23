@@ -5,7 +5,7 @@ export const fakeData = [
         description: "Industrial air compressor",
         toDo: "Check pressure and filters",
         toDoValue: true,
-        lastMaintenance: "2025-01-15",
+        lastMaintenance: "2026-02-23",
         ll: "Urgent",
         emergency: true,
         loadedBy: "John Doe"

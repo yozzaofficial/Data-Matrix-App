@@ -4,12 +4,13 @@ import "./../css/customSelect.css"
 type CustomSelectProps = {
     width: number,
     height: number,
-    optionsValues: string[]
+    optionsValues: string[],
+    defaultSelectValue: string,
+    setSelectValue: React.Dispatch<React.SetStateAction<string>>,
+    selectValue: string | undefined,
 }
 
-export default function CustomSelect({ width, height, optionsValues }: CustomSelectProps) {
-    const defaultSelectValue = "Select an option"
-    const [selectValue, setSelectValue] = React.useState(defaultSelectValue)
+export default function CustomSelect({ width, height, optionsValues, defaultSelectValue, setSelectValue, selectValue }: CustomSelectProps) {
     const [isOpen, setIsOpen] = React.useState(false)
     const selectRef = React.useRef<HTMLUListElement>(null);
     const propsStyle = {
