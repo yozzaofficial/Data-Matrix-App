@@ -14,6 +14,9 @@
     --target-height: 0px;
     z-index: 1;
     background-color: white;
+    max-height: calc(var(--option-height) * 4);
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 
 .customSelect li {

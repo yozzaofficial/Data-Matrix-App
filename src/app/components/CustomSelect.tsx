@@ -16,6 +16,7 @@ export default function CustomSelect({ width, height, optionsValues, defaultSele
     const propsStyle = {
         width: `${width}px`,
         height: `${height}px`,
+        "--option-height": `${height}px`,
     };
 
     function setOptionsValue(value: string) {

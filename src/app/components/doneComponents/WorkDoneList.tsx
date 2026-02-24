@@ -1,9 +1,10 @@
+"use client"
 import { fakeData } from "@/app/FakeData"
 import arrowIcon from "./../../../../public/icon/iconArrow.png"
 import Image from "next/image"
 import { useSearchParams, useRouter } from "next/navigation";
 import { delay } from "../delay";
-
+import React from "react";
 type WorkDoneListProps = {
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -32,24 +33,46 @@ export default function WorkDoneList({ setOpenWorkDetail }: WorkDoneListProps) {
 
     const filteredData = fakeData.filter(d => d.toDoValue === false)
     const searchParams = useSearchParams();
-    const filter = searchParams.get("filter");
     const filterTime = searchParams.get("time");
+    const filterTech=searchParams.get("name");
+    
     const router = useRouter();
     const filteredDataTime = filterMaintenance(filterTime || undefined);
-    console.log(filterTime)
+
     async function openWorkDetail(id: number) {
-        if (filter === "date" && filterTime === "")
-            router.replace(`done?filter=date&id=${id}`)
-        else if (filter === "date" && filterTime !== "")
-            router.replace(`done?filter=date&time=${filterTime}&id=${id}`)
+        if (filterTime !== null)
+            router.replace(`done?time=${filterTime}&id=${id}`)
+        else if(filterTech !==null)
+            router.replace(`done?name=${filterTech}&id=${id}`)
         else
-            router.replace(`done?filter=technician&id=${id}`)
+            router.replace(`done?id=${id}`)
         await delay(300);
         setOpenWorkDetail(true)
     }
-    const dataToRender = filter
-        ? filteredDataTime
-        : filteredData;
+
+    function getDataToRender(){
+        if(filterTime!==null)
+            return filteredDataTime
+        else 
+            return filteredData
+    }
+
+    function getDataToRender2(filterTime: typeof fakeData){
+        if(filterTech !== null)
+        {
+            const data = filterTime.filter(e => e.technician===filterTech)
+            console.log(filterTech)
+            return data
+        }
+        else
+            return filterTime
+
+    }
+
+    const filterTimeIsActive = getDataToRender()
+
+    const dataToRender= (getDataToRender2(filterTimeIsActive));
+
 
     const liElements = dataToRender.map(d => {
         return <li

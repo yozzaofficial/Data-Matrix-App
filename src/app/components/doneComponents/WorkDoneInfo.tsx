@@ -4,10 +4,11 @@ import Image from "next/image";
 import closeIcon from "./../../../../public/icon/iconX.png"
 
 type WorkDoneListProps = {
-    setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
+    clickAwayRef: React.RefObject<null>,
 }
 
-export default function WorkDoneInfo({setOpenWorkDetail}: WorkDoneListProps){
+export default function WorkDoneInfo({setOpenWorkDetail,clickAwayRef}: WorkDoneListProps){
 
     const searchParams = useSearchParams();
     const filter = searchParams.get("id");
@@ -15,7 +16,7 @@ export default function WorkDoneInfo({setOpenWorkDetail}: WorkDoneListProps){
     const filteredData = fakeData.find(e=> e.id===filterInNumber)
     const data = filteredData
     
-    return<div className="workDetail" >
+    return<div className="workDetail" ref={clickAwayRef}>
          <header>
             <div className="workDetailTitle">
                 <h2>{data?.name}</h2>

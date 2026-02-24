@@ -4,11 +4,12 @@ export const fakeData = [
         name: "Compressor",
         description: "Industrial air compressor",
         toDo: "Check pressure and filters",
-        toDoValue: true,
+        toDoValue: false,
         lastMaintenance: "2026-02-23",
         ll: "Urgent",
         emergency: true,
-        loadedBy: "John Doe"
+        loadedBy: "John Doe",
+        technician: "Mario Rossi"
     },
     {
         id: 2,
@@ -19,7 +20,8 @@ export const fakeData = [
         lastMaintenance: "2024-11-03",
         note: "Scheduled",
         emergency: false,
-        loadedBy: "Jane Smith"
+        loadedBy: "Jane Smith",
+        technician: "Luigi Bianchi"
     },
     {
         id: 3,
@@ -30,7 +32,8 @@ export const fakeData = [
         lastMaintenance: "2025-02-01",
         note: "OK",
         emergency: false,
-        loadedBy: "Mark Johnson"
+        loadedBy: "Mark Johnson",
+        technician: "Marco Verdi"
     },
     {
         id: 4,
@@ -41,6 +44,7 @@ export const fakeData = [
         lastMaintenance: "2024-12-20",
         note: "To schedule",
         emergency: false,
-        loadedBy: "Emily Davis"
+        loadedBy: "Emily Davis",
+        technician: "Giulia Neri"
     }
 ];
