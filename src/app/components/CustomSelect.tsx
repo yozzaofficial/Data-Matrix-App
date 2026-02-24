@@ -8,10 +8,12 @@ type CustomSelectProps = {
     defaultSelectValue: string,
     setSelectValue: React.Dispatch<React.SetStateAction<string>>,
     selectValue: string | undefined,
-}
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, 
+    isOpen:boolean,
+    clickAwayRef?: React.RefObject<null>
+}   
 
-export default function CustomSelect({ width, height, optionsValues, defaultSelectValue, setSelectValue, selectValue }: CustomSelectProps) {
-    const [isOpen, setIsOpen] = React.useState(false)
+export default function CustomSelect({ width, height, optionsValues, defaultSelectValue, setSelectValue, selectValue,isOpen, setIsOpen,clickAwayRef }: CustomSelectProps) {
     const selectRef = React.useRef<HTMLUListElement>(null);
     const propsStyle = {
         width: `${width}px`,
@@ -39,12 +41,12 @@ export default function CustomSelect({ width, height, optionsValues, defaultSele
     }, [isOpen]);
 
     const liElements = optionsValues.map((v) => {
-        return <li key={v} style={propsStyle} onClick={(e) => { e.stopPropagation(); setOptionsValue(v == "" ? defaultSelectValue : v) }}>{v}</li>
+        return <li ref={clickAwayRef} key={v} style={propsStyle} onClick={(e) => { e.stopPropagation(); setOptionsValue(v == "" ? defaultSelectValue : v) }}>{v}</li>
     })
 
     return <>
-        <div style={propsStyle} className={isOpen ? "selectCurrentValue borderRadiusSelect" : "selectCurrentValue"} onClick={() => setIsOpen(prev => !prev)}>{selectValue}
-            <ul className={isOpen ? "customSelect showOptions" : "customSelect hideOptions"} ref={selectRef}>
+        <div  ref={clickAwayRef} style={propsStyle} className={isOpen ? "selectCurrentValue borderRadiusSelect" : "selectCurrentValue"} onClick={() => setIsOpen(prev => !prev)}>{selectValue}
+            <ul  className={isOpen ? "customSelect showOptions" : "customSelect hideOptions"} ref={selectRef}>
                 {liElements}
 
             </ul>

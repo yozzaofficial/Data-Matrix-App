@@ -15,7 +15,7 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
     const [workConfirmOut, setWorkConfirmOut] = React.useState(false)
     const defaultSelectValue = "Select an option"
     const [selectValue, setSelectValue] = React.useState(defaultSelectValue)
-
+    const [selectOpen,setSelectOpen] = React.useState(false)
 
     React.useEffect(() => {
         setTimeout(() => {
@@ -64,7 +64,9 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
                     <div id="confirmWorkTechnician">
                         <CustomSelect width={350} height={60} optionsValues={["", "Technician 1", "Technician 2", "Technician 3"]} defaultSelectValue={defaultSelectValue}
                             setSelectValue={setSelectValue}
-                            selectValue={selectValue} />
+                            selectValue={selectValue} 
+                            setIsOpen={setSelectOpen}
+                            isOpen={selectOpen}/>
                     </div>
                 </div>
                 <div>

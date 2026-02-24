@@ -61,7 +61,6 @@ export default function WorkDoneList({ setOpenWorkDetail }: WorkDoneListProps) {
         if(filterTech !== null)
         {
             const data = filterTime.filter(e => e.technician===filterTech)
-            console.log(filterTech)
             return data
         }
         else
