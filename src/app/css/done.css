@@ -16,9 +16,11 @@
     margin-top: 25px;
     margin-bottom: 40px;
 }
-.doneNav p{
+
+.doneNav p {
     font-size: 0.9em;
 }
+
 .doneNav::after {
     content: "";
     width: 0%;
@@ -103,8 +105,13 @@
 }
 
 .customSelectFilterDoneContainer {
-    font-size: 0.7em;
+    font-size: 0.6em;
     font-weight: 500;
+
+    .selectCurrentValue {
+        display: flex;
+        padding: 0;
+    }
 }
 
 .noWorkDone {
@@ -113,10 +120,28 @@
     opacity: 0.6;
     margin-top: 0px;
 }
-.removeDoneFilter{
+
+.removeDoneFilter {
     background-color: transparent;
-    color:#ed4448;
-    border:none;
+    color: #ed4448;
+    border: none;
     font-size: 1.1em;
     font-weight: 700;
+}
+
+.workDetailTodoBody {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+
+    h3 {
+        margin: 0;
+    }
+
+    div {
+        margin-bottom: 10px;
+    }
 }

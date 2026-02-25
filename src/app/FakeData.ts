@@ -6,7 +6,7 @@ export const fakeData = [
         toDo: "Check pressure and filters",
         toDoValue: false,
         lastMaintenance: "2026-02-23",
-        ll: "Urgent",
+        note: "Urgent",
         emergency: true,
         loadedBy: "John Doe",
         technician: "Mario Rossi"

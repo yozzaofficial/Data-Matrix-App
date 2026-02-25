@@ -1,18 +1,16 @@
-import { Client } from "pg";
+import { neon } from "@netlify/neon";
+
+export const sql = neon();
+
+// Schedule: ogni giorno alle 3:00 AM UTC
+export const schedule = "*/40 * * * *"; // formato cron: minora ore giorno-mese mese giorno-settimana
 
 export const handler = async () => {
-    const client = new Client({
-        connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
-    });
-
     try {
-        await client.connect();
-
-        await client.query(`
+        const result = await sql`
       DELETE FROM sessions
       WHERE expires_at < NOW()
-    `);
+    `;
 
         return {
             statusCode: 200,
@@ -23,7 +21,5 @@ export const handler = async () => {
             statusCode: 500,
             body: JSON.stringify(error),
         };
-    } finally {
-        await client.end();
     }
 };
