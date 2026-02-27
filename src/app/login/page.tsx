@@ -9,11 +9,12 @@ function LoginForm() {
     useEffect(() => {
         async function autoLogin() {
             const pathValue = searchParams.get("path") || "";
-
+            const filterValue = searchParams.get("id") || ""
+            console.log(pathValue)
             // Controlla se "user=user" è dentro il path
-            const hasAutoLogin = pathValue.includes("user=user");
-
-            if (hasAutoLogin) {
+            const hasAutoLogin = searchParams.get("user") || "";
+            console.log(hasAutoLogin)
+            if (hasAutoLogin!=="") {
                 const res = await fetch("/api/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -22,7 +23,7 @@ function LoginForm() {
 
                 if (res.ok) {
                     // Il path già contiene tutto: "todo?user=user"
-                    window.location.href = `${pathValue}`;
+                    window.location.href = `${pathValue}?id=${filterValue}`;
                 } else {
                     setError("Auto-login fallito");
                 }

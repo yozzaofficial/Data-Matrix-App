@@ -15,6 +15,7 @@
     "argon2": "^0.44.0",
     "bcryptjs": "^3.0.3",
     "cookie": "^1.1.1",
+    "html5-qrcode": "^2.3.8",
     "jsonwebtoken": "^9.0.3",
     "neon": "^2.0.0",
     "next": "16.1.6",

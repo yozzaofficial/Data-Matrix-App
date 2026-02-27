@@ -6,10 +6,15 @@ import iconProfileClicked from "./../../../public/icon//iconProfileClicked.png"
 import Image from "next/image"
 import getRank from "./getRank"
 import React from "react"
+import { useClickAway } from "ahooks"
 
 export default function MainHeader2() {
     //const rank = await getRank()
     const [openUser, setOpenUser] = React.useState(false)
+     const clickAwayRefUser = React.useRef(null);
+        useClickAway(() => {
+                setOpenUser(false);
+            }, clickAwayRefUser);
     const rank = "user"
     return <>
         <header className="mainHeader2">
@@ -18,7 +23,7 @@ export default function MainHeader2() {
                     className="buttonsNav2"
                     onClick={() => setOpenUser(prev => !prev)}
                 ><Image src={iconProfile} alt="Icon profile" width={40} height={40}></Image>
-                    {openUser && <div className="profileSection"><div className="profileTriangle"></div><p>Logged In As:</p>{rank === "user" ? "Technician" : "Admin"}</div>}
+                    {openUser && <div ref={clickAwayRefUser} className="profileSection"><div className="profileTriangle"></div><p>Logged In As:</p>{rank === "user" ? "Technician" : "Admin"}</div>}
                 </div>
                 <div className="buttonsNav2"><Image src={iconLogout} alt="Icon logout" width={40} height={40}></Image></div>
             </nav>

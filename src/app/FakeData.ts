@@ -31,7 +31,7 @@ export const fakeData = [
         toDoValue: true,
         lastMaintenance: "2025-02-01",
         note: "OK",
-        emergency: false,
+        emergency: true,
         loadedBy: "Mark Johnson",
         technician: "Marco Verdi"
     },

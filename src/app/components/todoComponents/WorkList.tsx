@@ -14,13 +14,19 @@ type WorkListProps = {
 export default function WorkList({ setOpenWorkDetail }: WorkListProps) {
     const searchParams = useSearchParams();
     const filter = searchParams.get("filter");
+    const filterId = searchParams.get("id") || "";
     const router = useRouter();
     React.useEffect(() => { //set filter emergency default
+        console.log(filterId)
         if (!filter) {
-            router.replace(`todo?filter=emergency`);
+            if(filterId!=="")
+                router.replace(`todo?filter=emergency&id=${filterId}`);
+            else
+                router.replace(`todo?filter=emergency`);
         }
     }, [filter, router]);
-    const filteredData = fakeData.filter(e => {
+
+    let filteredData = fakeData.filter(e => {
         if (filter === "emergency") {
             return e.emergency === true;
         }
@@ -29,6 +35,9 @@ export default function WorkList({ setOpenWorkDetail }: WorkListProps) {
         }
         return true;
     });
+
+    if(filterId !=="")
+        filteredData = filteredData.filter(e => e.id===Number(filterId))
 
     async function openWorkDetail(id: number) {
         if (filter === "emergency")

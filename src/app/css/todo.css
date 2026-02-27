@@ -66,6 +66,7 @@
     gap: 50px;
     margin-top: 25px;
     margin-bottom: 40px;
+    position: relative;
 }
 
 .todoNav::after {
@@ -300,6 +301,20 @@
 .buttonField {
     display: flex;
     gap: 50px;
+}
+
+.removeTodoIdFilter{
+    background-color: transparent;
+    color: #ed4448;
+    border: 1px solid #ed4448;
+    font-size: 0.6em;
+    font-weight: 400;
+    padding: 2px 5px;
+    border-radius: 10px;
+    position: absolute;
+    left:80%;
+    top:50%;
+    transform: translateY(-50%);
 }
 
 @keyframes workConfirmAnimation {
