@@ -14,7 +14,7 @@ type propsConfirm = {
 
 export default async function workConfirmHandler({ payload }: propsConfirm) {
 
-    const res = await fetch("/api/todoItems", {
+    const res = await fetch("/api/setDoneItems", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
