@@ -16,9 +16,21 @@ export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsTyp
     const searchParams = useSearchParams();
     const filter = searchParams.get("id");
     const filterInNumber = Number(filter);
-    const filteredData = fakeData.find(e => e.id === filterInNumber);
-    const data = filteredData;
+
     const [isWorkConfirmedOpen, setIsWorkConfirmedOpen] = React.useState(false);
+    const [item, setItem] = React.useState<any[]>([])
+
+    React.useEffect(() => {
+        const load = async () => {
+            const res = await fetch("/api/getTodoItems")
+            const data = await res.json()
+            setItem(data)
+        }
+
+        load()
+    }, [])
+    const filteredData = item.find(e => e.id === filterInNumber);
+    const data = filteredData;
 
     return <div className="workDetail" ref={clickAwayRef}>
         <header>
