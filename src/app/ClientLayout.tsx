@@ -38,7 +38,7 @@ export default function ClientLayout({
                         <NavButtons iconClicked={iconWorkClicked} icon={iconWork} path="/todo?filter=emergency" name="To do"></NavButtons>
                         <NavButtons iconClicked={iconDoneClicked} icon={iconDone} path="/done" name="Work Done"></NavButtons>
                         {userRank === "admin" ? <NavButtons iconClicked={iconNewWorkClicked} icon={iconNewWork} path="/new" name="Handle Work"></NavButtons> :
-                            <NavButtons iconClicked={iconReportFilled} icon={iconReport} path="/report" name="Report"></NavButtons>}
+                            <NavButtons iconClicked={iconReportFilled} icon={iconReport} path="/report?mode=itemlist" name="Report"></NavButtons>}
                         {userRank === "admin" && <NavButtons iconClicked={iconUserSettingsClicked} icon={iconUserSettings} path="/user-settings" name="User Settings"></NavButtons>}
                     </nav>
                 </header>

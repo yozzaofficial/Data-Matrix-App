@@ -83,7 +83,7 @@
 
 }
 
-.todoNav .todoNavActive::after {
+.todoNavActive::after {
     content: "";
     position: absolute;
     animation: animationNavTodo 0.2s forwards;
@@ -303,7 +303,7 @@
     gap: 50px;
 }
 
-.removeTodoIdFilter{
+.removeTodoIdFilter {
     background-color: transparent;
     color: #ed4448;
     border: 1px solid #ed4448;
@@ -312,8 +312,8 @@
     padding: 2px 5px;
     border-radius: 10px;
     position: absolute;
-    left:80%;
-    top:50%;
+    left: 80%;
+    top: 50%;
     transform: translateY(-50%);
 }
 
