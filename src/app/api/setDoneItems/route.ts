@@ -5,7 +5,7 @@ export async function POST(req: Request) {
         const { iditem, nameitem, done, last_maintenance, note, technician } = await req.json();
 
         const inserted = await sql`
-      INSERT INTO todo_items
+      INSERT INTO maintance_done
         (iditem, nameitem, done, last_maintenance, note, technician)
       VALUES
         (${iditem}, ${nameitem}, ${done}, ${last_maintenance}, ${note}, ${technician})
