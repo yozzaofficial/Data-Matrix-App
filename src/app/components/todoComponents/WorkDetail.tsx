@@ -42,21 +42,21 @@ export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsTyp
         <main className="workDetailBody">
             <div className="workDetailDesc">
                 <div>
-                    <h3>Description</h3>
+                    <h3>{data?.Description}</h3>
                     <Image src={iconV} alt="Icon V" width={40} height={40} className="iconV" />
                 </div>
-                <p>{data?.toDo}</p>
+                <p>{data?.["to-do"]}</p>
             </div>
             <div className="lastMaintanceDiv">
                 <h3>Last Maintance:</h3>
-                <p>{data?.lastMaintenance}</p>
+                <p>{data?.["last-maintance"]}</p>
             </div>
         </main>
         <footer>
             <h3>Note:</h3>
             <p className="nodeText">{data?.note}</p>
             <div>
-                <p>Loaded by: {data?.loadedBy}</p>
+                <p>Loaded by: Admin</p>
             </div>
         </footer>
         <div className="workDetailButtonsContainer">
