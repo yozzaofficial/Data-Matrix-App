@@ -16,17 +16,30 @@ export default function WorkList({ setOpenWorkDetail }: WorkListProps) {
     const filter = searchParams.get("filter");
     const filterId = searchParams.get("id") || "";
     const router = useRouter();
+    const [item, setItem] = React.useState<any[]>([])
     React.useEffect(() => { //set filter emergency default
         console.log(filterId)
         if (!filter) {
-            if(filterId!=="")
+            if (filterId !== "")
                 router.replace(`todo?filter=emergency&id=${filterId}`);
             else
                 router.replace(`todo?filter=emergency`);
         }
     }, [filter, router]);
 
-    let filteredData = fakeData.filter(e => {
+    React.useEffect(() => {
+        const load = async () => {
+            const res = await fetch("/api/getTodoItems")
+            const data = await res.json()
+            setItem(data)
+        }
+
+        load()
+    }, [])
+
+
+
+    let filteredData = item.filter(e => {
         if (filter === "emergency") {
             return e.emergency === true;
         }
@@ -36,8 +49,8 @@ export default function WorkList({ setOpenWorkDetail }: WorkListProps) {
         return true;
     });
 
-    if(filterId !=="")
-        filteredData = filteredData.filter(e => e.id===Number(filterId))
+    if (filterId !== "")
+        filteredData = filteredData.filter(e => e.id === Number(filterId))
 
     async function openWorkDetail(id: number) {
         if (filter === "emergency")
@@ -47,6 +60,9 @@ export default function WorkList({ setOpenWorkDetail }: WorkListProps) {
         await delay(300);
         setOpenWorkDetail(true);
     }
+
+
+
     const liElements = filteredData.map(e => (
         <li
             key={e.id}

@@ -4,12 +4,13 @@ import { fakeData } from "@/app/FakeData"
 import arrowIcon from "./../../../../public/icon/iconArrow.png";
 import Image from "next/image";
 import ItemForm from "./ItemForm";
-
+import { useClickAway } from "ahooks";
 type Item = {
     id: number
     name: string
     description: string
 }
+const ItemFormAny = ItemForm as any;
 
 export default function ListItem() {
 
@@ -20,7 +21,10 @@ export default function ListItem() {
         setIsOpen(true);
         idClicked.current = { id, name, description };
     }
-
+    const clickAwayRef = React.useRef(null);
+    useClickAway(() => {
+        setIsOpen(false);
+    }, clickAwayRef);
 
     const liElements = fakeData.map(e => {
         return <li key={e.id} className="workReport" onClick={() => clickHandler(e.id, e.name, e.description)}>
@@ -34,6 +38,6 @@ export default function ListItem() {
         <ul className="workListReport">
             {liElements}
         </ul>
-        {isOpen && <ItemForm idItem={idClicked.current} />}
+        {isOpen && <ItemFormAny idItem={idClicked.current} clickAwayRef={clickAwayRef} />}
     </>
 }

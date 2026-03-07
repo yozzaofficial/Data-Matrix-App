@@ -8,10 +8,11 @@ type Item = {
 }
 
 type PropsType = {
-    idItem: Item | null
+    idItem: Item | null,
+    clickAwayRef?: React.RefObject<null>,
 }
 
-export default function ItemForm({ idItem }: PropsType) {
+export default function ItemForm({ idItem, clickAwayRef }: PropsType) {
 
     const [file, setFile] = React.useState<File | null>(null);
 
@@ -20,8 +21,9 @@ export default function ItemForm({ idItem }: PropsType) {
         setFile(e.target.files[0])
     }
 
+
     return (
-        <div className="reportDetail">
+        <div className="reportDetail" ref={clickAwayRef}>
             <h2>{idItem?.name}</h2>
             <h3>{idItem?.description}</h3>
 

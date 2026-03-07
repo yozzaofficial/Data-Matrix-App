@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { useSearchParams,useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function ToDoNav() {
     const searchParams = useSearchParams();
@@ -8,8 +8,8 @@ export default function ToDoNav() {
     const filterId = searchParams.get("id") || ""
     const router = useRouter()
 
-    function removeFilter(){
-        
+    function removeFilter() {
+
         router.replace("/todo")
     }
 
@@ -28,7 +28,7 @@ export default function ToDoNav() {
             >
                 Regular
             </Link>
-            {filterId !=="" ? <button className="removeTodoIdFilter" onClick={() => removeFilter()}>Remove Filter</button> : null}
+            {filterId !== "" ? <button className="removeTodoIdFilter" onClick={() => removeFilter()}>Remove Filter</button> : null}
         </nav>
     );
 }
