@@ -6,7 +6,6 @@ import { useSearchParams } from "next/navigation";
 import closeIcon from "./../../../../public/icon/iconX.png"
 import iconV from "./../../../../public/icon/iconV.png"
 import WorkConfirm from "./WorkConfirm";
-
 type propsType = {
     clickAwayRef: React.RefObject<null>,
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>
@@ -32,6 +31,7 @@ export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsTyp
     const filteredData = item.find(e => e.id === filterInNumber);
     const data = filteredData;
 
+
     return <div className="workDetail" ref={clickAwayRef}>
         <header>
             <div className="workDetailTitle">
@@ -42,6 +42,7 @@ export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsTyp
         <main className="workDetailBody">
             <div className="workDetailDesc">
                 <div>
+                    <h2>Description</h2>
                     <h3>{data?.Description}</h3>
                     <Image src={iconV} alt="Icon V" width={40} height={40} className="iconV" />
                 </div>
@@ -63,6 +64,6 @@ export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsTyp
             <button className="workDetailButton workDetailButtonCancel" onClick={() => setOpenWorkDetail(false)}>Cancel</button>
             <button className="workDetailButton" onClick={() => setIsWorkConfirmedOpen(true)}>Complete</button>
         </div>
-        <WorkConfirm isWorkConfirmOpen={isWorkConfirmedOpen} setOpenWorkDetail={setOpenWorkDetail} setIsWorkConfirmOpen={setIsWorkConfirmedOpen} />
+        <WorkConfirm isWorkConfirmOpen={isWorkConfirmedOpen} setOpenWorkDetail={setOpenWorkDetail} setIsWorkConfirmOpen={setIsWorkConfirmedOpen} itemData={data} />
     </div>
 }

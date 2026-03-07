@@ -4,18 +4,30 @@ import iconX from "./../../../../public/icon/iconX.png"
 import Image from "next/image"
 import React from "react"
 import CustomSelect from "./../CustomSelect"
+import workConfirmHandler from "./workConfirmHandler"
 type propsType = {
     isWorkConfirmOpen: boolean,
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
     setIsWorkConfirmOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    itemData: TodoItem
 }
-
-export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setIsWorkConfirmOpen }: propsType) {
+type TodoItem = {
+    id: string;
+    name: string;
+    description: string;
+    "to-do": string;
+    "to-do-value": boolean
+    "last-maintenance": string;
+    note: string;
+    emergency: boolean;
+};
+export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setIsWorkConfirmOpen, itemData }: propsType) {
     const [fileName, setFileName] = React.useState<String[]>([]); // inizializza array vuoto
     const [workConfirmOut, setWorkConfirmOut] = React.useState(false)
     const defaultSelectValue = "Select an option"
     const [selectValue, setSelectValue] = React.useState(defaultSelectValue)
-    const [selectOpen,setSelectOpen] = React.useState(false)
+    const [selectOpen, setSelectOpen] = React.useState(false)
+    const [note, setNote] = React.useState("")
 
     React.useEffect(() => {
         setTimeout(() => {
@@ -49,6 +61,20 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
         setFileName(prev => [...prev, ...files.map(file => file.name)]);
     };
 
+
+    function submitData() {
+        let payload = {
+            id: itemData.id,
+            iditem: itemData.id,
+            nameitem: itemData.name,
+            done: note,
+            last_maintenance: new Date().toISOString(),
+            note: "",
+            technician: selectValue !== defaultSelectValue,
+        };
+        workConfirmHandler({ payload })
+    }
+
     return <div className={`workConfirm ${workConfirmOut ? "workConfirmTransitionLeft" : isWorkConfirmOpen ? "workConfirmTransition" : ""}`}>
         <header>
             <div className="workDetailTitle">
@@ -64,9 +90,9 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
                     <div id="confirmWorkTechnician">
                         <CustomSelect width={350} height={60} optionsValues={["", "Technician 1", "Technician 2", "Technician 3"]} defaultSelectValue={defaultSelectValue}
                             setSelectValue={setSelectValue}
-                            selectValue={selectValue} 
+                            selectValue={selectValue}
                             setIsOpen={setSelectOpen}
-                            isOpen={selectOpen}/>
+                            isOpen={selectOpen} />
                     </div>
                 </div>
                 <div>
@@ -78,6 +104,8 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
                         rows={4}          // numero di righe visibili
                         cols={50}         // larghezza (opzionale, puoi usare CSS)
                         placeholder="Give a brief description of the work"
+                        value={note}                // il valore viene dal state
+                        onChange={e => setNote(e.target.value)}
                     ></textarea>
                 </div>
                 <div className="confirmWorkImgDiv">
