@@ -37,18 +37,7 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
     }, [workConfirmOut])
 
     async function tryInsert() {
-        const res = await fetch("./../../api/insertNewWork", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({}),
-        });
-
-        if (res.ok) {
-            const user = await res.json();
-            console.log("Login OK:", user);
-        } else {
-            console.error("Login fallito");
-        }
+        submitData()
     }
 
 
