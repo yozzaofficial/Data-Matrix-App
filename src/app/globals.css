@@ -14,8 +14,8 @@
 
 html,
 body {
-  max-width: 768px;
-  max-height: 1024px;
+  width: 768px;
+  height: 1024px;
   overflow-x: hidden;
 }
 
