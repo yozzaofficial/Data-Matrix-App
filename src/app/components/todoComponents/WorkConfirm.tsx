@@ -61,7 +61,7 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
             done: note,
             last_maintenance: new Date().toISOString(),
             note: "",
-            technician: selectValue !== defaultSelectValue,
+            technician: selectValue,
         };
         workConfirmHandler({ payload })
         setTodoFalse(itemData.id);

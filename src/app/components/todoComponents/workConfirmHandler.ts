@@ -6,7 +6,7 @@ type TodoItem = {
     done: string;
     last_maintenance: string;
     note: string;
-    technician: boolean;
+    technician: string;
 };
 type propsConfirm = {
     payload: TodoItem
