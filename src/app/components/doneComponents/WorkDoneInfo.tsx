@@ -13,8 +13,7 @@ export default function WorkDoneInfo({ setOpenWorkDetail, clickAwayRef, item }: 
 
     const searchParams = useSearchParams();
     const filter = searchParams.get("id");
-    const filterInNumber = Number(filter);
-    const filteredData = item.find(e => e.id === filterInNumber)
+    const filteredData = item.find(e => e.id === filter)
     const data = filteredData
 
     return <div className="workDetail" ref={clickAwayRef}>
