@@ -6,14 +6,15 @@ import closeIcon from "./../../../../public/icon/iconX.png"
 type WorkDoneListProps = {
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
     clickAwayRef: React.RefObject<null>,
+    item: any[]
 }
 
-export default function WorkDoneInfo({ setOpenWorkDetail, clickAwayRef }: WorkDoneListProps) {
+export default function WorkDoneInfo({ setOpenWorkDetail, clickAwayRef, item }: WorkDoneListProps) {
 
     const searchParams = useSearchParams();
     const filter = searchParams.get("id");
     const filterInNumber = Number(filter);
-    const filteredData = fakeData.find(e => e.id === filterInNumber)
+    const filteredData = item.find(e => e.id === filterInNumber)
     const data = filteredData
 
     return <div className="workDetail" ref={clickAwayRef}>

@@ -6,7 +6,8 @@ import { delay } from "../delay";
 import React from "react";
 
 type WorkDoneListProps = {
-    setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
+    item: any[]
 }
 
 function filterMaintenance(filter?: string, item: any[] = []) {
@@ -30,9 +31,8 @@ function filterMaintenance(filter?: string, item: any[] = []) {
     });
 }
 
-export default function WorkDoneList({ setOpenWorkDetail }: WorkDoneListProps) {
+export default function WorkDoneList({ setOpenWorkDetail, item }: WorkDoneListProps) {
 
-    const [item, setItem] = React.useState<any[]>([])
 
     // prima era toDoValue
     const filteredData = item
@@ -44,17 +44,7 @@ export default function WorkDoneList({ setOpenWorkDetail }: WorkDoneListProps) {
 
     const filteredDataTime = filterMaintenance(filterTime || undefined, item);
 
-    React.useEffect(() => {
-        const load = async () => {
-            const res = await fetch("/api/getDoneItems")
 
-            const data = await res.json()
-            console.log(data)
-            setItem(data)
-        }
-
-        load()
-    }, [])
 
     async function openWorkDetail(id: string) {
         if (filterTime !== null)
