@@ -48,7 +48,9 @@ export default function WorkDoneList({ setOpenWorkDetail }: WorkDoneListProps) {
     React.useEffect(() => {
         const load = async () => {
             const res = await fetch("/api/getDoneItems")
+
             const data = await res.json()
+            console.log(data)
             setItem(data)
         }
 
