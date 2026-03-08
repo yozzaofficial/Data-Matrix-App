@@ -39,6 +39,7 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
 
     async function tryInsert() {
         submitData()
+        setOpenWorkDetail(false);
     }
 
 
