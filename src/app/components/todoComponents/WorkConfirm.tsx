@@ -5,6 +5,7 @@ import Image from "next/image"
 import React from "react"
 import CustomSelect from "./../CustomSelect"
 import workConfirmHandler from "./workConfirmHandler"
+import { setTodoFalse } from "./workConfirmHandler"
 type propsType = {
     isWorkConfirmOpen: boolean,
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
@@ -62,6 +63,7 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
             technician: selectValue !== defaultSelectValue,
         };
         workConfirmHandler({ payload })
+        setTodoFalse(itemData.id);
     }
 
     return <div className={`workConfirm ${workConfirmOut ? "workConfirmTransitionLeft" : isWorkConfirmOpen ? "workConfirmTransition" : ""}`}>

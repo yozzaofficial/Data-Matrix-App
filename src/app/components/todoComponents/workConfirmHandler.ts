@@ -23,3 +23,13 @@ export default async function workConfirmHandler({ payload }: propsConfirm) {
     const data = await res.json();
     console.log("Inserito:", data);
 };
+export async function setTodoFalse(id: string) {
+
+    const res = await fetch("/api/setTodoFalse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id })
+    })
+    const data = await res.json();
+    console.log("Ok:", data);
+}
