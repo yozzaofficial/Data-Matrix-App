@@ -8,13 +8,12 @@ import React from "react";
 type WorkDoneListProps = {
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>
 }
-function filterMaintenance(filter?: string) {
-    if (!filter) return fakeData; // nessun filtro → ritorna tutto
+function filterMaintenance(filter?: string, item: typeof fakeData = fakeData) {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0); // azzera ore/minuti/secondi
 
-    return fakeData.filter(d => {
+    return item.filter(d => {
         const itemDate = new Date(d.lastMaintenance + "T00:00:00"); // forza mezzanotte locale
         itemDate.setHours(0, 0, 0, 0);
 
@@ -30,19 +29,28 @@ function filterMaintenance(filter?: string) {
     });
 }
 export default function WorkDoneList({ setOpenWorkDetail }: WorkDoneListProps) {
-
-    const filteredData = fakeData.filter(d => d.toDoValue === false)
+    const [item, setItem] = React.useState<any[]>([])
+    const filteredData = item.filter(d => d.toDoValue === false)
     const searchParams = useSearchParams();
     const filterTime = searchParams.get("time");
-    const filterTech=searchParams.get("name");
-    
-    const router = useRouter();
-    const filteredDataTime = filterMaintenance(filterTime || undefined);
+    const filterTech = searchParams.get("name");
 
+
+    const router = useRouter();
+    const filteredDataTime = filterMaintenance(filterTime || undefined, item);
+    React.useEffect(() => {
+        const load = async () => {
+            const res = await fetch("/api/getTodoItems")
+            const data = await res.json()
+            setItem(data)
+        }
+
+        load()
+    }, [])
     async function openWorkDetail(id: number) {
         if (filterTime !== null)
             router.replace(`done?time=${filterTime}&id=${id}`)
-        else if(filterTech !==null)
+        else if (filterTech !== null)
             router.replace(`done?name=${filterTech}&id=${id}`)
         else
             router.replace(`done?id=${id}`)
@@ -50,17 +58,16 @@ export default function WorkDoneList({ setOpenWorkDetail }: WorkDoneListProps) {
         setOpenWorkDetail(true)
     }
 
-    function getDataToRender(){
-        if(filterTime!==null)
+    function getDataToRender() {
+        if (filterTime !== null)
             return filteredDataTime
-        else 
+        else
             return filteredData
     }
 
-    function getDataToRender2(filterTime: typeof fakeData){
-        if(filterTech !== null)
-        {
-            const data = filterTime.filter(e => e.technician===filterTech)
+    function getDataToRender2(filterTime: typeof item) {
+        if (filterTech !== null) {
+            const data = filterTime.filter(e => e.technician === filterTech)
             return data
         }
         else
@@ -70,7 +77,7 @@ export default function WorkDoneList({ setOpenWorkDetail }: WorkDoneListProps) {
 
     const filterTimeIsActive = getDataToRender()
 
-    const dataToRender= (getDataToRender2(filterTimeIsActive));
+    const dataToRender = (getDataToRender2(filterTimeIsActive));
 
 
     const liElements = dataToRender.map(d => {
