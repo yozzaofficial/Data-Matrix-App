@@ -35,8 +35,7 @@ export default function WorkDoneList({ setOpenWorkDetail }: WorkDoneListProps) {
     const [item, setItem] = React.useState<any[]>([])
 
     // prima era toDoValue
-    const filteredData = item.filter(d => d.done === true)
-
+    const filteredData = item
     const searchParams = useSearchParams();
     const filterTime = searchParams.get("time");
     const filterTech = searchParams.get("name");
