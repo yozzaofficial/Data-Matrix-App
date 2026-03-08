@@ -31,7 +31,7 @@ export default function WorkDoneInfo({ setOpenWorkDetail, clickAwayRef, item }: 
             </div>
             <div className="lastMaintanceDiv">
                 <h3>Last Maintance:</h3>
-                <p>{data?.["last_maintance"]}</p>
+                <p>{data?.last_maintenance}</p>
             </div>
             <div className="lastTechnicianDiv">
                 <h3>Technician</h3>

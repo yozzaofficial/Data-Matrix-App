@@ -20,13 +20,14 @@ export default function NavButtons({ path, iconClicked, icon, name }: Props) {
         if (path.includes("?")) {
             const [basePath, query] = path.split("?");
             const params = new URLSearchParams(query);
-            const allMatch = Array.from(params.entries()).every(
-                ([key, value]) => searchParams.get(key) === value
-            );
-            return pathname === basePath && allMatch;
-        } else {
-            return pathname === path;
+
+            return pathname === basePath &&
+                Array.from(params.entries()).every(([key, value]) =>
+                    searchParams.get(key) === value
+                );
         }
+
+        return pathname === path;
     })();
 
     return (
