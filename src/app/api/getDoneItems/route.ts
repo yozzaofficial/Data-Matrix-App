@@ -11,7 +11,7 @@ export async function GET() {
         last_maintenance,
         note,
         technician
-      FROM todo_items
+      FROM maintance_done
       ORDER BY last_maintenance DESC
     `;
 
