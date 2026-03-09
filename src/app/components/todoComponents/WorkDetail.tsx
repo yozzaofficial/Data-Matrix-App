@@ -13,23 +13,13 @@ type propsType = {
     item: MaintenanceItem[]
 }
 
-export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsType) {
+export default function WorkDetail({ clickAwayRef, setOpenWorkDetail, item }: propsType) {
     const searchParams = useSearchParams();
     const filter = searchParams.get("id");
     const filterInNumber = Number(filter);
 
     const [isWorkConfirmedOpen, setIsWorkConfirmedOpen] = React.useState(false);
-    const [item, setItem] = React.useState<any[]>([])
 
-    React.useEffect(() => {
-        const load = async () => {
-            const res = await fetch("/api/getTodoItems")
-            const data = await res.json()
-            setItem(data)
-        }
-
-        load()
-    }, [])
     const filteredData = item.find(e => e.id === filterInNumber);
     const data = filteredData;
 
@@ -45,7 +35,7 @@ export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsTyp
             <div className="workDetailDesc">
                 <div>
                     <h2>Description</h2>
-                    <h3>{data?.Description}</h3>
+                    <h3>{data?.description}</h3>
                     <Image src={iconV} alt="Icon V" width={40} height={40} className="iconV" />
                 </div>
                 <p>{data?.["to-do"]}</p>
@@ -66,6 +56,8 @@ export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsTyp
             <button className="workDetailButton workDetailButtonCancel" onClick={() => setOpenWorkDetail(false)}>Cancel</button>
             <button className="workDetailButton" onClick={() => setIsWorkConfirmedOpen(true)}>Complete</button>
         </div>
-        <WorkConfirm isWorkConfirmOpen={isWorkConfirmedOpen} setOpenWorkDetail={setOpenWorkDetail} setIsWorkConfirmOpen={setIsWorkConfirmedOpen} itemData={data} />
+        {data ? (
+            <WorkConfirm isWorkConfirmOpen={isWorkConfirmedOpen} setOpenWorkDetail={setOpenWorkDetail} setIsWorkConfirmOpen={setIsWorkConfirmedOpen} itemData={data} />
+        ) : null}
     </div>
 }
