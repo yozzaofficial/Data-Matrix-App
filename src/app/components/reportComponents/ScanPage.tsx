@@ -17,10 +17,11 @@ type propsType = {
 export default function ScanPage({ isOpen, setIsOpen, clickAwayRef }: propsType) {
     const [extractedItem, setExtractedItem] = React.useState<Item>({ id: 0, name: "", description: "" })
 
-    const load = useCallback(async () => {
+    const load = useCallback(async (id: number) => {
         const res = await fetch("/api/getTodoItems")
         const data = await res.json()
-        setExtractedItem({ id: data.id, name: data.name, description: data.description })
+        const filterData = data.find((f: { id: number; }) => f.id === id)
+        setExtractedItem({ id: filterData.id, name: filterData.name, description: filterData.description })
     }, [])
 
     const handleScan = useCallback(async (decodedText: string) => {
@@ -28,7 +29,8 @@ export default function ScanPage({ isOpen, setIsOpen, clickAwayRef }: propsType)
             const url = new URL(decodedText);
             const id = url.searchParams.get("id");
             if (id) {
-                await load()
+                let numberId = Number(id)
+                await load(numberId)
                 setIsOpen(true)
             }
         } catch (error) {
