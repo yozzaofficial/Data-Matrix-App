@@ -22,8 +22,10 @@ export default function WorkList({ setOpenWorkDetail, item = [], setItem }: Work
     const router = useRouter();
     React.useEffect(() => { //set filter emergency default
         if (!filter) {
-
-            router.replace(`todo?filter=emergency`);
+            if (filterId !== "")
+                router.replace(`todo?filter=emergency&id=${filterId}`);
+            else
+                router.replace(`todo?filter=emergency`);
         }
     }, [filter, router]);
 
@@ -48,9 +50,7 @@ export default function WorkList({ setOpenWorkDetail, item = [], setItem }: Work
         }
         return true;
     });
-
     filteredData = filteredData.filter(e => e["to-do-value"] === true)
-
     if (filterId !== "")
         filteredData = filteredData.filter(e => e.id === Number(filterId))
 
