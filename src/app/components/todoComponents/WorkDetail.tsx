@@ -31,7 +31,6 @@ export default function WorkDetail({ clickAwayRef, setOpenWorkDetail, item }: pr
         <main className="workDetailBody">
             <div className="workDetailDesc">
                 <div>
-                    <h2>Description</h2>
                     <h3>{data?.description}</h3>
                     <Image src={iconV} alt="Icon V" width={40} height={40} className="iconV" />
                 </div>
