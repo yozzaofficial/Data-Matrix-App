@@ -41,7 +41,7 @@ export default function ScanPage({ isOpen, setIsOpen, clickAwayRef }: propsType)
     return <div style={{ padding: "20px" }}>
         <h1>Scansione QR Code</h1>
 
-        <QrScanner onScan={handleScan} />
+        {!isOpen && <QrScanner onScan={handleScan} />}
         {isOpen && <ItemForm idItem={extractedItem} clickAwayRef={clickAwayRef} />}
     </div>
 }
