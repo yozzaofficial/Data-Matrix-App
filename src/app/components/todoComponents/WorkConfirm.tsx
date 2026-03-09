@@ -6,22 +6,13 @@ import React from "react"
 import CustomSelect from "./../CustomSelect"
 import workConfirmHandler from "./workConfirmHandler"
 import { setTodoFalse } from "./workConfirmHandler"
+import { MaintenanceItem } from "@/app/todo/page"
 type propsType = {
     isWorkConfirmOpen: boolean,
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
     setIsWorkConfirmOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    itemData: TodoItem
+    itemData: MaintenanceItem
 }
-type TodoItem = {
-    id: string;
-    name: string;
-    description: string;
-    "to-do": string;
-    "to-do-value": boolean
-    "last-maintenance": string;
-    note: string;
-    emergency: boolean;
-};
 export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setIsWorkConfirmOpen, itemData }: propsType) {
     const [fileName, setFileName] = React.useState<String[]>([]); // inizializza array vuoto
     const [workConfirmOut, setWorkConfirmOut] = React.useState(false)
@@ -55,8 +46,8 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
 
     function submitData() {
         let payload = {
-            id: itemData.id,
-            iditem: itemData.id,
+            id: String(itemData.id),
+            iditem: String(itemData.id),
             nameitem: itemData.name,
             done: note,
             last_maintenance: new Date().toISOString(),
@@ -64,7 +55,7 @@ export default function WorkConfirm({ isWorkConfirmOpen, setOpenWorkDetail, setI
             technician: selectValue,
         };
         workConfirmHandler({ payload })
-        setTodoFalse(itemData.id);
+        setTodoFalse(String(itemData.id));
     }
 
     return <div className={`workConfirm ${workConfirmOut ? "workConfirmTransitionLeft" : isWorkConfirmOpen ? "workConfirmTransition" : ""}`}>

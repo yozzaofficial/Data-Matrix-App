@@ -6,9 +6,11 @@ import { useSearchParams } from "next/navigation";
 import closeIcon from "./../../../../public/icon/iconX.png"
 import iconV from "./../../../../public/icon/iconV.png"
 import WorkConfirm from "./WorkConfirm";
+import { MaintenanceItem } from "@/app/todo/page";
 type propsType = {
     clickAwayRef: React.RefObject<null>,
-    setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
+    item: MaintenanceItem[]
 }
 
 export default function WorkDetail({ clickAwayRef, setOpenWorkDetail }: propsType) {

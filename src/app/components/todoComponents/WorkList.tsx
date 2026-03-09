@@ -6,17 +6,20 @@ import emergencyIcon from "./../../../../public/icon/emergencyicon.png"
 import arrowIcon from "./../../../../public/icon/iconArrow.png";
 import Image from "next/image";
 import { delay } from "../delay";
+import { MaintenanceItem } from "@/app/todo/page";
 
 type WorkListProps = {
-    setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>
+    setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
+    item: MaintenanceItem[],
+    setItem: React.Dispatch<React.SetStateAction<MaintenanceItem[]>>
+
 }
 
-export default function WorkList({ setOpenWorkDetail }: WorkListProps) {
+export default function WorkList({ setOpenWorkDetail, item = [], setItem }: WorkListProps) {
     const searchParams = useSearchParams();
     const filter = searchParams.get("filter");
     const filterId = searchParams.get("id") || "";
     const router = useRouter();
-    const [item, setItem] = React.useState<any[]>([])
     React.useEffect(() => { //set filter emergency default
         console.log(filterId)
         if (!filter) {
