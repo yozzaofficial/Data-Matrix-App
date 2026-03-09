@@ -12,19 +12,21 @@ type Item = {
 }
 const ItemFormAny = ItemForm as any;
 
-export default function ListItem() {
+type propsType = {
+    isOpen: boolean,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    clickAwayRef: React.RefObject<null>
+}
 
-    const [isOpen, setIsOpen] = React.useState(false);
+export default function ListItem({ isOpen, setIsOpen, clickAwayRef }: propsType) {
+
     const idClicked = React.useRef<Item | null>(null);
 
     function clickHandler(id: number, name: string, description: string) {
         setIsOpen(true);
         idClicked.current = { id, name, description };
     }
-    const clickAwayRef = React.useRef(null);
-    useClickAway(() => {
-        setIsOpen(false);
-    }, clickAwayRef);
+
 
     const liElements = fakeData.map(e => {
         return <li key={e.id} className="workReport" onClick={() => clickHandler(e.id, e.name, e.description)}>
