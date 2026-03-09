@@ -21,12 +21,8 @@ export default function WorkList({ setOpenWorkDetail, item = [], setItem }: Work
     const filterId = searchParams.get("id") || "";
     const router = useRouter();
     React.useEffect(() => { //set filter emergency default
-        console.log(filterId)
         if (!filter) {
-            if (filterId !== "")
-                router.replace(`todo?filter=emergency&id=${filterId}`);
-            else
-                router.replace(`todo?filter=emergency`);
+            router.replace(`todo?filter=emergency`);
         }
     }, [filter, router]);
 
@@ -57,9 +53,9 @@ export default function WorkList({ setOpenWorkDetail, item = [], setItem }: Work
 
     async function openWorkDetail(id: number) {
         if (filter === "emergency")
-            router.replace(`todo?filter=emergency&id=${id}`)
+            router.replace(`todo?filter=emergency`)
         else
-            router.replace(`todo?filter=regular&id=${id}`)
+            router.replace(`todo?filter=regular`)
         await delay(300);
         setOpenWorkDetail(true);
     }
