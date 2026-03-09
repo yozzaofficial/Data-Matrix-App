@@ -18,7 +18,6 @@ type WorkListProps = {
 export default function WorkList({ setOpenWorkDetail, item = [], setItem }: WorkListProps) {
     const searchParams = useSearchParams();
     const filter = searchParams.get("filter");
-    const filterId = searchParams.get("id") || "";
     const router = useRouter();
     React.useEffect(() => { //set filter emergency default
         if (!filter) {
@@ -48,8 +47,8 @@ export default function WorkList({ setOpenWorkDetail, item = [], setItem }: Work
         return true;
     });
 
-    if (filterId !== "")
-        filteredData = filteredData.filter(e => e.id === Number(filterId))
+    filteredData = filteredData.filter(e => e["to-do-value"] === true)
+
 
     async function openWorkDetail(id: number) {
         if (filter === "emergency")
