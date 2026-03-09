@@ -10,18 +10,15 @@ import { MaintenanceItem } from "@/app/todo/page";
 type propsType = {
     clickAwayRef: React.RefObject<null>,
     setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
-    item: MaintenanceItem[]
+    item: MaintenanceItem
 }
 
 export default function WorkDetail({ clickAwayRef, setOpenWorkDetail, item }: propsType) {
-    const searchParams = useSearchParams();
-    const filter = searchParams.get("id");
-    const filterInNumber = Number(filter);
 
     const [isWorkConfirmedOpen, setIsWorkConfirmedOpen] = React.useState(false);
 
-    const filteredData = item.find(e => e.id === filterInNumber);
-    const data = filteredData;
+
+    const data = item;
 
 
     return <div className="workDetail" ref={clickAwayRef}>
