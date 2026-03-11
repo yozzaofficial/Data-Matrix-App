@@ -423,6 +423,9 @@
   .workDetail {
     font-size: 1.3em;
   }
+  .buttonField {
+    gap: 15px;
+  }
 }
 @media (max-width: 350px) {
   .removeTodoIdFilter {

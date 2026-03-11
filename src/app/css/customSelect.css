@@ -94,6 +94,7 @@
 @media (max-width: 500px) {
   .selectCurrentValue {
     width: 240px !important;
+    padding: 5px 10px;
   }
   .customSelect li {
     width: 240px !important;
