@@ -5,6 +5,7 @@ import arrowIcon from "./../../../../public/icon/iconArrow.png";
 import Image from "next/image";
 import ItemForm from "./ItemForm";
 import { useClickAway } from "ahooks";
+import { MaintenanceItem } from "@/app/todo/page";
 type Item = {
     id: number
     name: string
@@ -21,14 +22,25 @@ type propsType = {
 export default function ListItem({ isOpen, setIsOpen, clickAwayRef }: propsType) {
 
     const idClicked = React.useRef<Item | null>(null);
+    const [item,setItem] = React.useState<MaintenanceItem[]>([])
 
     function clickHandler(id: number, name: string, description: string) {
         setIsOpen(true);
         idClicked.current = { id, name, description };
     }
 
+     React.useEffect(() => {
+            const load = async () => {
+                const res = await fetch("/api/getTodoItems")
+                const data = await res.json()
+                setItem(data)
+            }
+    
+            load()
+        }, [])
 
-    const liElements = fakeData.map(e => {
+
+    const liElements = item?.map(e => {
         return <li key={e.id} className="workReport" onClick={() => clickHandler(e.id, e.name, e.description)}>
             <p>{e.name}</p>
             <p>{e.description}</p>
