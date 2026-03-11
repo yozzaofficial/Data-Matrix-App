@@ -41,7 +41,7 @@ export default function WorkList({ setOpenWorkDetail, item = [], setItem }: Work
 
 
 
-    let filteredData = item.filter(e => {
+    let filteredData = fakeData.filter(e => {
         if (filter === "emergency") {
             return e.emergency === true;
         }
@@ -50,7 +50,7 @@ export default function WorkList({ setOpenWorkDetail, item = [], setItem }: Work
         }
         return true;
     });
-    filteredData = filteredData.filter(e => e["to-do-value"] === true)
+    //filteredData = filteredData.filter(e => e["to-do-value"] === true)
     if (filterId !== "")
         filteredData = filteredData.filter(e => e.id === Number(filterId))
 
@@ -73,7 +73,7 @@ export default function WorkList({ setOpenWorkDetail, item = [], setItem }: Work
             {e.name}
             <div className="todoWorkIcon">
                 {e.emergency && <div className="emergencyIcon"></div>}
-                <Image src={arrowIcon} alt="arrowIcon" width={40} height={40} />
+                <Image src={arrowIcon} alt="arrowIcon" className="arrowIcon" />
             </div>
         </li>
     ));
