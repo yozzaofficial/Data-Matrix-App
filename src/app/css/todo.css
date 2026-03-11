@@ -391,6 +391,11 @@
   .removeTodoIdFilter {
     left: 50%;
     transform: translateX(-50%);
+    top: 80%;
+  }
+}
+@media (max-width: 450px) {
+  .removeTodoIdFilter {
     top: 65%;
   }
 }
