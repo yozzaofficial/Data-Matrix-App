@@ -91,3 +91,11 @@
     transform: scale(0.8);
   }
 }
+@media (max-width: 500px) {
+  .selectCurrentValue {
+    width: 240px !important;
+  }
+  .customSelect li {
+    width: 240px !important;
+  }
+}
