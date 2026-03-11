@@ -1,59 +1,88 @@
-"use client"
+"use client";
 import React from "react";
-import Image from "next/image"
-import { fakeData } from "@/app/FakeData"
+import Image from "next/image";
+import { fakeData } from "@/app/FakeData";
 import { useSearchParams } from "next/navigation";
-import closeIcon from "./../../../../public/icon/iconX.png"
-import iconV from "./../../../../public/icon/iconV.png"
+import closeIcon from "./../../../../public/icon/iconX.png";
+import iconV from "./../../../../public/icon/iconV.png";
 import WorkConfirm from "./WorkConfirm";
 import { MaintenanceItem } from "@/app/todo/page";
 type propsType = {
-    clickAwayRef: React.RefObject<null>,
-    setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>,
-    item: MaintenanceItem
-}
+  clickAwayRef: React.RefObject<null>;
+  setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>;
+  item: MaintenanceItem;
+};
 
-export default function WorkDetail({ clickAwayRef, setOpenWorkDetail, item }: propsType) {
+export default function WorkDetail({
+  clickAwayRef,
+  setOpenWorkDetail,
+  item,
+}: propsType) {
+  const [isWorkConfirmedOpen, setIsWorkConfirmedOpen] = React.useState(false);
 
-    const [isWorkConfirmedOpen, setIsWorkConfirmedOpen] = React.useState(false);
+  const data = item;
 
-
-    const data = item;
-
-
-    return <div className="workDetail" ref={clickAwayRef}>
-        <header>
-            <div className="workDetailTitle">
-                <h2>{data?.name}</h2>
-                <Image src={closeIcon} alt="Close icon" width={48} height={48} className="closeIcon" onClick={() => setOpenWorkDetail(false)} />
-            </div>
-        </header>
-        <main className="workDetailBody">
-            <div className="workDetailDesc">
-                <div>
-                    <h3>{data?.description}</h3>
-                    <Image src={iconV} alt="Icon V" width={40} height={40} className="iconV" />
-                </div>
-                <p>{data?.["to-do"]}</p>
-            </div>
-            <div className="lastMaintanceDiv">
-                <h3>Last Maintance:</h3>
-                <p>{data?.["last-maintance"]}</p>
-            </div>
-        </main>
-        <footer>
-            <h3>Note:</h3>
-            <p className="nodeText">{data?.note}</p>
-            <div>
-                <p>Loaded by: Admin</p>
-            </div>
-        </footer>
-        <div className="workDetailButtonsContainer">
-            <button className="workDetailButton workDetailButtonCancel" onClick={() => setOpenWorkDetail(false)}>Cancel</button>
-            <button className="workDetailButton" onClick={() => setIsWorkConfirmedOpen(true)}>Complete</button>
+  return (
+    <div className="workDetail" ref={clickAwayRef}>
+      <header>
+        <div className="workDetailTitle">
+          <h2>{data?.name}</h2>
+          <Image
+            src={closeIcon}
+            alt="Close icon"
+            className="closeIcon"
+            onClick={() => setOpenWorkDetail(false)}
+          />
         </div>
-        {data ? (
-            <WorkConfirm isWorkConfirmOpen={isWorkConfirmedOpen} setOpenWorkDetail={setOpenWorkDetail} setIsWorkConfirmOpen={setIsWorkConfirmedOpen} itemData={data} />
-        ) : null}
+      </header>
+      <main className="workDetailBody">
+        <div className="workDetailDesc">
+          <div>
+            <h3>{data?.description}</h3>
+            <Image
+              src={iconV}
+              alt="Icon V"
+              width={40}
+              height={40}
+              className="iconV"
+            />
+          </div>
+          <p>{data?.["to-do"]}</p>
+        </div>
+        <div className="lastMaintanceDiv">
+          <h3>Last Maintance:</h3>
+          <p>{data?.["last-maintance"]}</p>
+        </div>
+      </main>
+      <footer>
+        <h3>Note:</h3>
+        <p className="nodeText">{data?.note}</p>
+        <div>
+          <p>Loaded by: Admin</p>
+        </div>
+      </footer>
+      <div className="workDetailButtonsContainer">
+        <button
+          className="workDetailButton workDetailButtonCancel"
+          onClick={() => setOpenWorkDetail(false)}
+        >
+          Cancel
+        </button>
+        <button
+          className="workDetailButton"
+          onClick={() => setIsWorkConfirmedOpen(true)}
+        >
+          Complete
+        </button>
+      </div>
+      {data ? (
+        <WorkConfirm
+          isWorkConfirmOpen={isWorkConfirmedOpen}
+          setOpenWorkDetail={setOpenWorkDetail}
+          setIsWorkConfirmOpen={setIsWorkConfirmedOpen}
+          itemData={data}
+        />
+      ) : null}
     </div>
+  );
 }

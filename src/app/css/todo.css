@@ -203,6 +203,8 @@
 
 .closeIcon {
   cursor: pointer;
+  width: 48px;
+  height: 48px;
 }
 
 .workConfirm {
@@ -211,7 +213,7 @@
   height: 100%;
   background-color: white;
   top: 0;
-  left: 100%;
+  left: 120%;
   border-radius: 10px;
   padding: 25px 35px;
 }
@@ -268,10 +270,12 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  align-content: start;
+  flex-wrap: wrap;
 }
 
 #confirmWorkForm div {
-  width: 500px;
+  width: 90%;
 }
 
 #confirmWorkForm select {
@@ -292,6 +296,7 @@
 
 #confirmWorkForm textarea {
   max-width: 500px;
+  width: 80%;
   font-size: 0.9em;
   background-color: white;
   color: black;
@@ -368,7 +373,16 @@
     width: 100%;
   }
 }
-
+@media (max-width: 650px) {
+  .selectCurrentValue {
+    align-self: flex-start;
+    justify-self: flex-start;
+  }
+  #confirmWorkForm {
+    font-size: 0.9em;
+    align-items: start;
+  }
+}
 @media (max-width: 450px) {
   .todoWorkIcon {
     gap: 5px;
@@ -391,11 +405,30 @@
   .removeTodoIdFilter {
     left: 50%;
     transform: translateX(-50%);
-    top: 80%;
+    top: 160%;
+  }
+  .workList {
+    margin-top: 80px;
+  }
+  .workDetailButtonsContainer {
+    gap: 20px;
+  }
+  .workConfirm {
+    left: 150%;
+  }
+  .closeIcon {
+    width: 40px;
+    height: 40px;
+  }
+  .workDetail {
+    font-size: 1.3em;
   }
 }
-@media (max-width: 450px) {
+@media (max-width: 350px) {
   .removeTodoIdFilter {
     top: 65%;
+  }
+  .workList {
+    margin-top: 0px;
   }
 }
