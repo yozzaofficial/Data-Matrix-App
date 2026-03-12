@@ -56,7 +56,8 @@ export default function WorkList({
     filteredData = filteredData.filter((e) => e.id === Number(filterId));
 
   async function openWorkDetail(id: number) {
-    if (filter === "emergency") router.replace(`todo?filter=emergency`);
+    if (filter === "emergency")
+      router.replace(`todo?filter=emergency&id=${id}`);
     else router.replace(`todo?filter=regular&id=${id}`);
     await delay(300);
     setOpenWorkDetail(true);
