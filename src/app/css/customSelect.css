@@ -93,8 +93,9 @@
 }
 @media (max-width: 500px) {
   .selectCurrentValue {
+    transform: translateX(-18%);
     width: 240px !important;
-    padding: 5px 10px;
+    padding: 5px;
   }
   .customSelect li {
     width: 240px !important;
