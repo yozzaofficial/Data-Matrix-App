@@ -42,7 +42,7 @@ export default function WorkList({
     load();
   }, []);
 
-  let filteredData = fakeData.filter((e) => {
+  let filteredData = item.filter((e) => {
     if (filter === "emergency") {
       return e.emergency === true;
     }
