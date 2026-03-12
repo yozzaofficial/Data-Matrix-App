@@ -23,7 +23,7 @@ export default function ItemForm({ idItem, clickAwayRef }: PropsType) {
   const [file, setFile] = React.useState<File | null>(null);
 
   async function reportAPI(payload: payloadType) {
-    const res = await fetch("/api/setDoneItems", {
+    const res = await fetch("/api/reportItem", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -46,7 +46,6 @@ export default function ItemForm({ idItem, clickAwayRef }: PropsType) {
       <form
         className="reportForm1"
         onSubmit={(e) => {
-          e.preventDefault();
           const formData = new FormData(e.currentTarget);
           const payload: payloadType = {
             iditem: idItem?.id || 0,
