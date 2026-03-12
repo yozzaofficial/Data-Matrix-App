@@ -42,7 +42,7 @@ export default function ListItem({
     load();
   }, []);
 
-  const liElements = fakeData?.map((e) => {
+  const liElements = item?.map((e) => {
     return (
       <li
         key={e.id}
