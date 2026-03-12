@@ -34,7 +34,8 @@ export default function WorkConfirm({
   }, [workConfirmOut]);
 
   async function tryInsert() {
-    submitData();
+    await submitData();
+    window.location.reload();
     setOpenWorkDetail(false);
   }
 
