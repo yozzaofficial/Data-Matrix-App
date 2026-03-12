@@ -387,7 +387,7 @@
 }
 @media (max-width: 450px) {
   .todoWorkIcon {
-    gap: 5px;
+    gap: 1px;
   }
   .emergencyIcon {
     width: 30px;

@@ -42,7 +42,7 @@ export default function ListItem({
     load();
   }, []);
 
-  const liElements = item?.map((e) => {
+  const liElements = fakeData?.map((e) => {
     return (
       <li
         key={e.id}
@@ -51,7 +51,13 @@ export default function ListItem({
       >
         <p>{e.name}</p>
         <p>{e.description}</p>
-        <Image src={arrowIcon} alt="arrowIcon" className="arrowIconReport" />
+        <Image
+          src={arrowIcon}
+          alt="arrowIcon"
+          width={40}
+          height={40}
+          className="arrowIconReport"
+        />
       </li>
     );
   });

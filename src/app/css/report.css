@@ -148,4 +148,15 @@
   .reportNav {
     gap: 20px;
   }
+  .arrowIconReport {
+    left: 85%;
+  }
+  .workReport {
+    padding: 10px 5px;
+  }
+}
+@media (max-width: 410px) {
+  .workReport p {
+    max-width: 300px;
+  }
 }
