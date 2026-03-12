@@ -12,12 +12,14 @@ type WorkListProps = {
   setOpenWorkDetail: React.Dispatch<React.SetStateAction<boolean>>;
   item: MaintenanceItem[];
   setItem: React.Dispatch<React.SetStateAction<MaintenanceItem[]>>;
+  setItemChoosed: React.Dispatch<React.SetStateAction<MaintenanceItem>>;
 };
 
 export default function WorkList({
   setOpenWorkDetail,
   item = [],
   setItem,
+  setItemChoosed,
 }: WorkListProps) {
   const searchParams = useSearchParams();
   const filter = searchParams.get("filter");
@@ -56,9 +58,12 @@ export default function WorkList({
     filteredData = filteredData.filter((e) => e.id === Number(filterId));
 
   async function openWorkDetail(id: number) {
-    if (filter === "emergency")
-      router.replace(`todo?filter=emergency&id=${id}`);
-    else router.replace(`todo?filter=regular&id=${id}`);
+    if (filter === "emergency") router.replace(`todo?filter=emergency`);
+    else router.replace(`todo?filter=regular`);
+
+    const itemToSend = item.find((e) => e.id === id);
+    if (itemToSend) setItemChoosed(itemToSend);
+
     await delay(300);
     setOpenWorkDetail(true);
   }
