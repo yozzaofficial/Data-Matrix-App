@@ -27,15 +27,15 @@ export default function CustomSelect({
   const selectRef = React.useRef<HTMLUListElement>(null);
 
   const useIsMobile = () => {
-    const [screenWidth, setScreenWidth] = React.useState(window.innerWidth);
-
+    const [screenWidth, setScreenWidth] = React.useState(
+      typeof window !== "undefined" ? window.innerWidth : 0,
+    );
     React.useEffect(() => {
       const handleResize = () => setScreenWidth(window.innerWidth);
 
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }, []);
-
     return screenWidth;
   };
 

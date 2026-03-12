@@ -49,7 +49,7 @@ export default function ItemForm({ idItem, clickAwayRef }: PropsType) {
           const formData = new FormData(e.currentTarget);
           const payload: payloadType = {
             iditem: idItem?.id || 0,
-            nameitem: formData.get("name") as string,
+            nameitem: idItem?.name || "N",
             note: (formData.get("name") as string) || "",
             technician: "",
           };

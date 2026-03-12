@@ -135,3 +135,17 @@
   align-self: center;
   margin-top: 50px;
 }
+.reportTitle {
+  font-size: 2.5em;
+  font-weight: 900;
+  text-align: start;
+}
+
+@media (max-width: 450px) {
+  .reportTitle {
+    width: 160px;
+  }
+  .reportNav {
+    gap: 20px;
+  }
+}

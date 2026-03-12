@@ -122,4 +122,9 @@
     width: 35px;
     height: 35px;
   }
+  .mainHeader2 {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+  }
 }
