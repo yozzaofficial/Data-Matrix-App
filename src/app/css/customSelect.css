@@ -88,7 +88,7 @@
 
 @media (max-width: 650px) {
   .selectCurrentValue {
-    transform: scale(0.8);
+    transform: scale(0.8) translateX(-20%);
   }
 }
 @media (max-width: 500px) {

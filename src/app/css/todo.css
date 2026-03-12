@@ -254,11 +254,15 @@
 #confirmWorkForm {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: flex-start;
   gap: 40px;
   font-size: 1em;
   height: 100%;
+}
+#confirmWorkForm div {
+  display: flex;
+  align-items: start;
 }
 
 #confirmWorkForm div:not(:nth-of-type(3) label) {
@@ -270,7 +274,6 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  align-content: center;
   flex-wrap: wrap;
 }
 
@@ -380,7 +383,6 @@
   }
   #confirmWorkForm {
     font-size: 0.9em;
-    align-items: start;
   }
 }
 @media (max-width: 450px) {
