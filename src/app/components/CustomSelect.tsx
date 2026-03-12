@@ -25,12 +25,54 @@ export default function CustomSelect({
   clickAwayRef,
 }: CustomSelectProps) {
   const selectRef = React.useRef<HTMLUListElement>(null);
-  const propsStyle = {
-    width: `${width}px`,
-    height: `${height}px`,
-    "--option-height": `${height}px`,
+
+  const useIsMobile = () => {
+    const [screenWidth, setScreenWidth] = React.useState(window.innerWidth);
+
+    React.useEffect(() => {
+      const handleResize = () => setScreenWidth(window.innerWidth);
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return screenWidth;
   };
 
+  const isMobile = useIsMobile();
+
+  let propsStyle: React.CSSProperties;
+  if (isMobile < 400) {
+    propsStyle = {
+      width: "170px",
+      height: "30px",
+      "--option-height": "30px",
+    } as React.CSSProperties;
+  } else if (isMobile < 450) {
+    propsStyle = {
+      width: "200px",
+      height: "30px",
+      "--option-height": "30px",
+    } as React.CSSProperties;
+  } else if (isMobile < 550) {
+    propsStyle = {
+      width: "250px",
+      height: "40px",
+      "--option-height": "34px",
+    } as React.CSSProperties;
+  } else if (isMobile < 650) {
+    propsStyle = {
+      width: "300px",
+      height: "50px",
+      "--option-height": "36px",
+    } as React.CSSProperties;
+  } else {
+    propsStyle = {
+      width: `${width}px`,
+      height: `${height}px`,
+      "--option-height": `${height}px`,
+    } as React.CSSProperties;
+  }
   function setOptionsValue(value: string) {
     setIsOpen(false);
     setSelectValue(value);

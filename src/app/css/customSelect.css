@@ -85,19 +85,3 @@
     height: 0px;
   }
 }
-
-@media (max-width: 650px) {
-  .selectCurrentValue {
-    transform: scale(0.8) translateX(-20%);
-  }
-}
-@media (max-width: 500px) {
-  .selectCurrentValue {
-    transform: translateX(-18%);
-    width: 240px !important;
-    padding: 5px;
-  }
-  .customSelect li {
-    width: 240px !important;
-  }
-}
